@@ -1,0 +1,3 @@
+[submodule "stack-utils"]
+	path = stack-utils
+	url = https://github.com/canonical/stack-utils.git
