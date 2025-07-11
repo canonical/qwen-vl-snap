@@ -1,6 +1,6 @@
-# Qwen 2.5 VL snap
+# Qwen Vision Language snap
 
-This snap installs a hardware-optimized runtime for inference with the Qwen 2.5 multi-modal model.
+This snap installs a hardware-optimized runtime for inference with the Qwen2.5-VL multi-modal model.
 
 ## Supported environment
 

@@ -1,10 +1,10 @@
-name: qwen-2-5-vl
+name: qwen-vl
 base: core24
-version: &snap-version "v1" # Refers to DeepSeek V3 base
-summary: Qwen 2.5 VL
+version: &snap-version "2.5" # Qwen2.5 VL
+summary: Qwen Vision Language Model
 description: |
   This snap installs an optimized environment for inference with the
-  Qwen 2.5 VLM.
+  Qwen 2.5 Vision Language Model.
 
 grade: devel
 confinement: strict
