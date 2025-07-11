@@ -1,0 +1,18 @@
+name: cpu-avx512
+description: Example stack for modern CPUs, offering good accuracy with low footprints
+vendor: Canonical Ltd
+grade: stable
+devices:
+  any:
+    - type: cpu
+      architecture: amd64
+      flags: [sse4_2, f16c, fma, avx, avx2, avx512f, avx512dq, avx512bw]
+memory: 4G
+disk-space: 8G
+components:
+  - &engine llamacpp-avx512
+  - &model model-qwen2-5-vl-7b-instruct-q4-k-m
+configurations:
+  engine: *engine
+  model: *model
+  http.base-path: v1

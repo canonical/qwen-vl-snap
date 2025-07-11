@@ -1,0 +1,21 @@
+name: cpu
+description: Example stack for CPUs, offering good accuracy with low footprints
+vendor: Canonical Ltd
+grade: stable
+devices:
+  any:
+    - type: cpu
+      architecture: amd64
+      flags: [sse4_2, f16c, fma, avx, avx2]
+    - type: cpu
+      architecture: arm64
+      features: [asimd]  # for ARMv8 ASIMD includes NEON instruction set
+memory: 4G
+disk-space: 8G
+components:
+  - &engine llamacpp
+  - &model model-qwen2-5-vl-7b-instruct-q4-k-m
+configurations:
+  engine: *engine
+  model: *model
+  http.base-path: v1
