@@ -1,5 +1,5 @@
-name: cpu
-description: A stack for CPUs with a good balance between speed and accuracy
+name: cpu-tiny
+description: A lower accuracy but faster stack for CPUs
 vendor: Canonical Ltd
 grade: stable
 devices:
@@ -14,7 +14,7 @@ memory: 4G
 disk-space: 8G
 components:
   - &engine llamacpp
-  - &model model-qwen2-5-vl-7b-instruct-q4-k-m
+  - &model model-qwen2-5-vl-3b-instruct-q4-k-m
 configurations:
   engine: *engine
   model: *model

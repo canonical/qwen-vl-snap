@@ -133,6 +133,12 @@ parts:
     organize:
       "*": (component/llamacpp-cuda)
 
+  model-qwen2-5-vl-3b-instruct-q4-k-m:
+    source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
+    plugin: dump
+    organize:
+      "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
+
   model-qwen2-5-vl-7b-instruct-q4-k-m:
     source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
     plugin: dump
@@ -165,6 +171,12 @@ components:
   # 
   # Models
   #
+
+  model-qwen2-5-vl-3b-instruct-q4-k-m:
+    type: standard
+    summary: Qwen 2.5 VL 3B Q4
+    description: Quantized model with 3B parameters in gguf format with Q4_K_M weight encoding
+    version: *snap-version
 
   model-qwen2-5-vl-7b-instruct-q4-k-m:
     type: standard
