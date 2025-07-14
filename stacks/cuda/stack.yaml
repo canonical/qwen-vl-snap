@@ -16,7 +16,9 @@ disk-space: 8G
 components:
   - &engine llamacpp-cuda
   - &model model-qwen2-5-vl-7b-instruct-q4-k-m
+  - &mmproject mmproj-qwen2-5-vl-7b-instruct-q8-0
 configurations:
   engine: *engine
   model: *model
+  mmproject: *mmproject
   http.base-path: v1

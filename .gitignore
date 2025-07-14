@@ -10,3 +10,4 @@ squashfs-root
 # Weights
 models/
 components/model*/*.gguf
+components/mmproj*/*.gguf
