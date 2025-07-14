@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
-name=qwen-2.5
+# load snapcraft.yaml into variable, explode to evaluate aliases
+snapcraft_yaml=$(yq '. | explode(.)' snap/snapcraft.yaml)
+
+snap_name=$(echo "$snapcraft_yaml" | yq '.name')
 
 architecture=$(dpkg --print-architecture)
 
@@ -8,7 +11,7 @@ stack=$1
 op=$2
 
 if [[ "$op" == "clean" ]]; then
-    sudo snap remove $name
+    sudo snap remove "$snap_name"
 fi
 
 # Validate stack name
@@ -28,17 +31,16 @@ fi
 yq stacks/$stack/stack.yaml > /dev/null
 
 # Install the snap
-sudo snap install --dangerous $name_*_$architecture.snap
+sudo snap install --dangerous $snap_name_*_$architecture.snap
 
 # Connect interfaces
-sudo snap connect $name:home
-sudo snap connect $name:hardware-observe
+#sudo snap connect $snap_name:home
+sudo snap connect $snap_name:hardware-observe
 
 # Set stack name
-sudo snap set $name stack="$stack"
+sudo snap set $snap_name stack="$stack"
 
 # Install stack components
 cat "./stacks/$stack/stack.yaml" | yq .components[] | while read -r component; do
-    sudo snap install --dangerous ./$name+"$component"_*.comp
+    sudo snap install --dangerous ./$snap_name+"$component"_*.comp
 done
-
