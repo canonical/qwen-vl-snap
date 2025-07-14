@@ -135,6 +135,12 @@ parts:
     organize:
       "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
 
+  mmproj-qwen2-5-vl-3b-instruct-q8-0:
+    source: components/mmproj-qwen2-5-vl-3b-instruct-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
+
   model-qwen2-5-vl-7b-instruct-q4-k-m:
     source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
     plugin: dump
@@ -180,6 +186,12 @@ components:
     description: Quantized model with 3B parameters in gguf format with Q4_K_M weight encoding
     version: *snap-version
 
+  mmproj-qwen2-5-vl-3b-instruct-q8-0:
+    type: standard
+    summary: MMProj for Qwen 2.5 VL 3B
+    description: Multi-modal projection for Qwen 2.5 VL 3B
+    version: *snap-version
+
   model-qwen2-5-vl-7b-instruct-q4-k-m:
     type: standard
     summary: Qwen 2.5 VL 7B Q4
@@ -188,8 +200,8 @@ components:
 
   mmproj-qwen2-5-vl-7b-instruct-q8-0:
     type: standard
-    summary: Qwen 2.5 VL 7B Q4
-    description: Multi-modal project model for Qwen 2.5 VL 7B Q4
+    summary: MMProj Qwen 2.5 VL 7B
+    description: Multi-modal projection for Qwen 2.5 VL 7B
     version: *snap-version
 
 apps:

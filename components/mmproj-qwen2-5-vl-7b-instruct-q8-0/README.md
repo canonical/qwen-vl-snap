@@ -1,4 +1,4 @@
-# Qwen2.5 VL 7B Instruct
+# Multi Modal Projection for Qwen2.5 VL 7B Instruct
 
 Model is available at:
 https://huggingface.co/ggml-org/Qwen2.5-VL-7B-Instruct-GGUF
