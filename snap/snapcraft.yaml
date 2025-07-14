@@ -141,6 +141,12 @@ parts:
     organize:
       "*": (component/model-qwen2-5-vl-7b-instruct-q4-k-m)
 
+  mmproj-qwen2-5-vl-7b-instruct-q8-0:
+    source: components/mmproj-qwen2-5-vl-7b-instruct-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
+
 components:
   #
   # Engines
@@ -178,6 +184,12 @@ components:
     type: standard
     summary: Qwen 2.5 VL 7B Q4
     description: Quantized model with 7B parameters in gguf format with Q4_K_M weight encoding
+    version: *snap-version
+
+  mmproj-qwen2-5-vl-7b-instruct-q8-0:
+    type: standard
+    summary: Qwen 2.5 VL 7B Q4
+    description: Multi-modal project model for Qwen 2.5 VL 7B Q4
     version: *snap-version
 
 apps:
