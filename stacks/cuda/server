@@ -8,6 +8,6 @@ host="$(snapctl get http.host)"
 exec "$engine/usr/local/bin/llama-server" \
 --model "$MODEL_FILE" \
 --mmproj "$MMPROJ_FILE" \
---n-gpu-layers $N_GPU_LAYERS \
 --port "$port" \
---host "$host"
+--host "$host" \
+"$@"

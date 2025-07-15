@@ -2,20 +2,20 @@
 
 engine="$SNAP_COMPONENTS/$(snapctl get engine)"
 model="$SNAP_COMPONENTS/$(snapctl get model)"
-mmproject="$SNAP_COMPONENTS/$(snapctl get mmproject)"
+mmproj="$SNAP_COMPONENTS/$(snapctl get multimodel-projector)"
 
 if [ ! -d "$model" ]; then
     echo "Missing component: $model"
     exit 1
 fi
 
-if [ ! -d "$mmproject" ]; then
-    echo "Missing component: $mmproject"
+if [ ! -d "$mmproj" ]; then
+    echo "Missing component: $mmproj"
     exit 1
 fi
 
 source "$model/init" # exports MODEL_FILE
-source "$mmproject/init" # export MMPROJ_FILE
+source "$mmproj/init" # export MMPROJ_FILE
 
 if [ ! -d "$engine" ]; then
     echo "Missing component: $engine"
