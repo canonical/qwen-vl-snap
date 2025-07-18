@@ -1,0 +1,23 @@
+name: cpu-tiny
+description: A lower accuracy but faster stack for CPUs
+vendor: Canonical Ltd
+grade: stable
+devices:
+  any:
+    - type: cpu
+      architecture: amd64
+      flags: [sse4_2, f16c, fma, avx, avx2]
+    - type: cpu
+      architecture: arm64
+      features: [asimd]  # for ARMv8 ASIMD includes NEON instruction set
+memory: 4G
+disk-space: 8G
+components:
+  - &engine llamacpp
+  - &model model-qwen2-5-vl-3b-instruct-q4-k-m
+  - &mmproj mmproj-qwen2-5-vl-3b-instruct-q8-0
+configurations:
+  engine: *engine
+  model: *model
+  multimodel-projector: *mmproj
+  http.base-path: v1

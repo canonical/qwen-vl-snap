@@ -1,0 +1,262 @@
+name: qwen-vl
+base: core24
+version: &snap-version "2.5" # Qwen2.5 VL
+summary: Qwen Vision Language Model
+description: |
+  This snap installs an optimized environment for inference with the
+  Qwen 2.5 Vision Language Model.
+
+grade: devel
+confinement: strict
+
+compression: lzo
+
+environment:
+  # Workaround until it gets set by snapd
+  SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
+
+layout:
+  # Wget's default config file
+  # This is to avoid runtime errors and AppArmor denials
+  /etc/wgetrc:
+    bind-file: $SNAP/etc/wgetrc
+
+plugs:
+  intel-npu:
+    interface: custom-device
+    custom-device: intel-npu-device
+  npu-libs:
+    interface: content
+    content: npu-libs-2404
+    target: $SNAP/npu-libs
+    
+hooks:
+  install:
+    environment: &install-env
+      # To load libigdrcl.so, for Intel GPU vRAM
+      OCL_ICD_VENDORS: $SNAP/etc/OpenCL/vendors
+    plugs: &install-plugs
+      # For hardware-info
+      - hardware-observe
+      - opengl
+  configure:
+    environment: *install-env
+    plugs: *install-plugs
+
+parts:
+  app-scripts:
+    source: apps
+    plugin: dump
+    organize:
+      "*": bin/
+
+  stacks:
+    source: stacks
+    plugin: dump
+    organize:
+      "*": stacks/
+
+  stack-utils:
+    source: stack-utils
+    plugin: go
+    build-snaps:
+      - go/1.24/stable
+    stage-packages:
+      - pciutils
+      - nvidia-utils # for Nvidia vRAM and Cuda Capability detection
+      - clinfo # for Intel GPU vRAM detection
+
+  go-chat-client:
+    source: https://github.com/jpm-canonical/go-chat-client.git
+    source-type: git
+    source-tag: v1.0.0-beta
+    plugin: go
+    build-snaps:
+      - go/1.24/stable
+
+  common-runtime-dependencies:
+    plugin: nil
+    stage-packages:
+      - wget # model init
+      - jq # install hook
+    stage-snaps:
+      - yq # install hook
+
+  llamacpp: &llamacpp-part
+    source: https://github.com/ggerganov/llama.cpp.git
+    source-tag: &llamacpp-tag b5794
+    source-depth: 1
+    plugin: cmake
+    cmake-parameters:
+      - -DLLAMA_CURL=OFF
+      - -DGGML_NATIVE=OFF
+    stage-packages:
+      - libgomp1
+    organize:
+      # move everything, including the staged packages
+      "*": (component/llamacpp)
+
+  llamacpp-avx512:
+    <<: *llamacpp-part
+    cmake-parameters:
+      - -DLLAMA_CURL=OFF
+      - -DGGML_NATIVE=OFF
+      - -DGGML_AVX512=ON
+    organize:
+      "*": (component/llamacpp-avx512)
+
+  llamacpp-cuda:
+    <<: *llamacpp-part
+    build-packages:
+      - to amd64: # see also the overrides
+        - nvidia-cuda-toolkit
+    # stage-packages:
+    #   - libgomp1
+    #   - libcudart12
+    #   - libcublas12
+    cmake-parameters:
+      - -DLLAMA_CURL=OFF
+      - -DGGML_NATIVE=OFF
+      - -DGGML_CUDA=ON
+      - -DCMAKE_CUDA_ARCHITECTURES=all-major
+    override-pull: &amd64-only |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        craftctl default
+      fi
+    override-build: *amd64-only
+    override-stage: *amd64-only
+    override-prime: *amd64-only
+    organize:
+      "*": (component/llamacpp-cuda)
+
+  model-qwen2-5-vl-3b-instruct-q4-k-m:
+    source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
+    plugin: dump
+    organize:
+      "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
+
+  mmproj-qwen2-5-vl-3b-instruct-q8-0:
+    source: components/mmproj-qwen2-5-vl-3b-instruct-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
+
+  model-qwen2-5-vl-7b-instruct-q4-k-m:
+    source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
+    plugin: dump
+    organize:
+      "*": (component/model-qwen2-5-vl-7b-instruct-q4-k-m)
+
+  mmproj-qwen2-5-vl-7b-instruct-q8-0:
+    source: components/mmproj-qwen2-5-vl-7b-instruct-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
+
+components:
+  #
+  # Engines
+  #
+
+  llamacpp:
+    type: standard
+    summary: llama.cpp Engine using default CPU instruction sets
+    description: LLM inference in C/C++
+    version: *llamacpp-tag
+
+  llamacpp-avx512:
+    type: standard
+    summary: llama.cpp Engine using default and AVX512 CPU instruction sets
+    description: LLM inference in C/C++
+    version: *llamacpp-tag
+
+  llamacpp-cuda:
+    type: standard
+    summary: llama.cpp Engine for NVIDIA GPUs using CUDA
+    description: LLM inference in C/C++
+    version: *llamacpp-tag
+
+  # 
+  # Models
+  #
+
+  model-qwen2-5-vl-3b-instruct-q4-k-m:
+    type: standard
+    summary: Qwen 2.5 VL 3B Q4
+    description: Quantized model with 3B parameters in gguf format with Q4_K_M weight encoding
+    version: *snap-version
+
+  mmproj-qwen2-5-vl-3b-instruct-q8-0:
+    type: standard
+    summary: MMProj for Qwen 2.5 VL 3B
+    description: Multimodal projector for Qwen 2.5 VL 3B
+    version: *snap-version
+
+  model-qwen2-5-vl-7b-instruct-q4-k-m:
+    type: standard
+    summary: Qwen 2.5 VL 7B Q4
+    description: Quantized model with 7B parameters in gguf format with Q4_K_M weight encoding
+    version: *snap-version
+
+  mmproj-qwen2-5-vl-7b-instruct-q8-0:
+    type: standard
+    summary: MMProj Qwen 2.5 VL 7B
+    description: Multimodal projector for Qwen 2.5 VL 7B
+    version: *snap-version
+
+apps:
+  # For testing purposes. Use sudo <snap>.re-install
+  # Connecting the hardware-observe interface is required even if installed in dev mode!
+  re-install:
+    command: meta/hooks/install
+    plugs: *install-plugs
+
+  hardware-info:
+    command: bin/hardware-info
+    plugs:
+      # For hardware detection
+      - hardware-observe
+      - opengl
+    environment:
+      # To load libigdrcl.so, for Intel GPU vRAM
+      OCL_ICD_VENDORS: $SNAP/etc/OpenCL/vendors
+
+  init:
+    command: bin/init.sh
+    plugs:
+      # Needed to download resources
+      - network
+      # For hardware detection
+      - hardware-observe
+      - opengl
+
+  chat: &chat-app
+    command-chain: [bin/wait-for-server.sh]
+    command: bin/chat.sh
+    plugs:
+      # For inference and hardware detection (via init)
+      - opengl
+      # Needed by for cuda-uvmfd to listen on a unix socket?
+      # Needed for server app by inheritance
+      - network-bind
+      # Needed to download resources
+      - network
+      # For hardware detection (via init)
+      - hardware-observe
+      # For sideloading models
+      - home 
+      # Intel NPU access (device node)
+      - intel-npu 
+      # Intel NPU access (libs) 
+      - npu-libs  
+    environment:
+      # Needed for shared libraries used by llama.cpp
+      # TODO: Should this instead be added in an env file to llamacpp component
+      ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
+
+  server:
+    <<: *chat-app
+    command-chain: []
+    command: bin/server.sh
+    daemon: simple
+    install-mode: disable

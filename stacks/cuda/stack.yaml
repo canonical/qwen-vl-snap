@@ -1,0 +1,24 @@
+name: cuda
+description: Generic stack for Nvidia GPUs using CUDA. All major CUDA versions are targeted.
+vendor: Canonical Ltd
+grade: devel
+devices:
+  all:
+    - type: cpu
+      architecture: amd64
+      flags: [sse4_2, f16c, fma, avx, avx2]
+    - type: gpu
+      vendor-id: 0x10de # Nvidia Corporation
+      vram: 5G
+      # compute-capability: 5.0
+memory: 4G
+disk-space: 8G
+components:
+  - &engine llamacpp-cuda
+  - &model model-qwen2-5-vl-7b-instruct-q4-k-m
+  - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
+configurations:
+  engine: *engine
+  model: *model
+  multimodel-projector: *mmproj
+  http.base-path: v1
