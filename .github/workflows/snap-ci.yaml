@@ -19,13 +19,15 @@ jobs:
         runs:
           - architecture: amd64
             runner: [ self-hosted, amd64, Linux, noble, large ]
-          - architecture: arm64
-            runner: [ self-hosted, ARM64, Linux, noble, large ]
+#          - architecture: arm64
+#            runner: [ self-hosted, ARM64, Linux, noble, large ]
     runs-on: ${{ matrix.runs.runner }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Download models
         run: |
