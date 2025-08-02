@@ -65,7 +65,7 @@ jobs:
           echo "Branch name: ${{ github.ref_name }}"
           echo "Event number: ${{ github.event.number }}"
           
-          if [[ ${{ github.ref_name }} != "refs/heads/main" ]]; then
+          if [[ "${{ github.ref_name }}" != "refs/heads/main" ]]; then
             echo "Not on main branch"
             channel="latest/edge/pr${{ github.event.number }}"
           fi
