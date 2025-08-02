@@ -82,76 +82,76 @@ parts:
     stage-snaps:
       - yq # install hook
 
-  llamacpp: &llamacpp-part
-    source: https://github.com/ggerganov/llama.cpp.git
-    source-tag: &llamacpp-tag b5794
-    source-depth: 1
-    plugin: cmake
-    cmake-parameters:
-      - -DLLAMA_CURL=OFF
-      - -DGGML_NATIVE=OFF
-    stage-packages:
-      - libgomp1
-    organize:
-      # move everything, including the staged packages
-      "*": (component/llamacpp)
-
-  llamacpp-avx512:
-    <<: *llamacpp-part
-    cmake-parameters:
-      - -DLLAMA_CURL=OFF
-      - -DGGML_NATIVE=OFF
-      - -DGGML_AVX512=ON
-    organize:
-      "*": (component/llamacpp-avx512)
-
-  llamacpp-cuda:
-    <<: *llamacpp-part
-    build-packages:
-      - to amd64: # see also the overrides
-        - nvidia-cuda-toolkit
-    # stage-packages:
-    #   - libgomp1
-    #   - libcudart12
-    #   - libcublas12
-    cmake-parameters:
-      - -DLLAMA_CURL=OFF
-      - -DGGML_NATIVE=OFF
-      - -DGGML_CUDA=ON
-      - -DCMAKE_CUDA_ARCHITECTURES=all-major
-    override-pull: &amd64-only |
-      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
-        craftctl default
-      fi
-    override-build: *amd64-only
-    override-stage: *amd64-only
-    override-prime: *amd64-only
-    organize:
-      "*": (component/llamacpp-cuda)
-
-  model-qwen2-5-vl-3b-instruct-q4-k-m:
-    source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
-    plugin: dump
-    organize:
-      "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
-
-  mmproj-qwen2-5-vl-3b-instruct-q8-0:
-    source: components/mmproj-qwen2-5-vl-3b-instruct-q8-0
-    plugin: dump
-    organize:
-      "*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
-
-  model-qwen2-5-vl-7b-instruct-q4-k-m:
-    source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
-    plugin: dump
-    organize:
-      "*": (component/model-qwen2-5-vl-7b-instruct-q4-k-m)
-
-  mmproj-qwen2-5-vl-7b-instruct-q8-0:
-    source: components/mmproj-qwen2-5-vl-7b-instruct-q8-0
-    plugin: dump
-    organize:
-      "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
+#  llamacpp: &llamacpp-part
+#    source: https://github.com/ggerganov/llama.cpp.git
+#    source-tag: &llamacpp-tag b5794
+#    source-depth: 1
+#    plugin: cmake
+#    cmake-parameters:
+#      - -DLLAMA_CURL=OFF
+#      - -DGGML_NATIVE=OFF
+#    stage-packages:
+#      - libgomp1
+#    organize:
+#      # move everything, including the staged packages
+#      "*": (component/llamacpp)
+#
+#  llamacpp-avx512:
+#    <<: *llamacpp-part
+#    cmake-parameters:
+#      - -DLLAMA_CURL=OFF
+#      - -DGGML_NATIVE=OFF
+#      - -DGGML_AVX512=ON
+#    organize:
+#      "*": (component/llamacpp-avx512)
+#
+#  llamacpp-cuda:
+#    <<: *llamacpp-part
+#    build-packages:
+#      - to amd64: # see also the overrides
+#        - nvidia-cuda-toolkit
+#    # stage-packages:
+#    #   - libgomp1
+#    #   - libcudart12
+#    #   - libcublas12
+#    cmake-parameters:
+#      - -DLLAMA_CURL=OFF
+#      - -DGGML_NATIVE=OFF
+#      - -DGGML_CUDA=ON
+#      - -DCMAKE_CUDA_ARCHITECTURES=all-major
+#    override-pull: &amd64-only |
+#      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+#        craftctl default
+#      fi
+#    override-build: *amd64-only
+#    override-stage: *amd64-only
+#    override-prime: *amd64-only
+#    organize:
+#      "*": (component/llamacpp-cuda)
+#
+#  model-qwen2-5-vl-3b-instruct-q4-k-m:
+#    source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
+#    plugin: dump
+#    organize:
+#      "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
+#
+#  mmproj-qwen2-5-vl-3b-instruct-q8-0:
+#    source: components/mmproj-qwen2-5-vl-3b-instruct-q8-0
+#    plugin: dump
+#    organize:
+#      "*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
+#
+#  model-qwen2-5-vl-7b-instruct-q4-k-m:
+#    source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
+#    plugin: dump
+#    organize:
+#      "*": (component/model-qwen2-5-vl-7b-instruct-q4-k-m)
+#
+#  mmproj-qwen2-5-vl-7b-instruct-q8-0:
+#    source: components/mmproj-qwen2-5-vl-7b-instruct-q8-0
+#    plugin: dump
+#    organize:
+#      "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
 
 components:
   #
@@ -162,19 +162,19 @@ components:
     type: standard
     summary: llama.cpp Engine using default CPU instruction sets
     description: LLM inference in C/C++
-    version: *llamacpp-tag
+#    version: *llamacpp-tag
 
   llamacpp-avx512:
     type: standard
     summary: llama.cpp Engine using default and AVX512 CPU instruction sets
     description: LLM inference in C/C++
-    version: *llamacpp-tag
+#    version: *llamacpp-tag
 
   llamacpp-cuda:
     type: standard
     summary: llama.cpp Engine for NVIDIA GPUs using CUDA
     description: LLM inference in C/C++
-    version: *llamacpp-tag
+#    version: *llamacpp-tag
 
   # 
   # Models
