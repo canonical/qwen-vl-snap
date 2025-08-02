@@ -48,5 +48,6 @@ echo -e "Channel:\n\t$channel"
 echo -ne "\nType Y to start the upload: "
 read confirmation
 if [[ "$confirmation" == "y" || "$confirmation" == "Y" ]]; then
-    snapcraft upload "$snap_file" "${component_args[@]}" --release="$channel"
+#    snapcraft upload "$snap_file" "${component_args[@]}" --release="$channel"
+    echo "Uploading"
 fi

@@ -82,20 +82,20 @@ parts:
     stage-snaps:
       - yq # install hook
 
-#  llamacpp: &llamacpp-part
-#    source: https://github.com/ggerganov/llama.cpp.git
-#    source-tag: &llamacpp-tag b5794
-#    source-depth: 1
-#    plugin: cmake
-#    cmake-parameters:
-#      - -DLLAMA_CURL=OFF
-#      - -DGGML_NATIVE=OFF
-#    stage-packages:
-#      - libgomp1
-#    organize:
-#      # move everything, including the staged packages
-#      "*": (component/llamacpp)
-#
+  llamacpp: &llamacpp-part
+    source: https://github.com/ggerganov/llama.cpp.git
+    source-tag: &llamacpp-tag b5794
+    source-depth: 1
+    plugin: cmake
+    cmake-parameters:
+      - -DLLAMA_CURL=OFF
+      - -DGGML_NATIVE=OFF
+    stage-packages:
+      - libgomp1
+    organize:
+      # move everything, including the staged packages
+      "*": (component/llamacpp)
+
 #  llamacpp-avx512:
 #    <<: *llamacpp-part
 #    cmake-parameters:
@@ -162,19 +162,19 @@ components:
     type: standard
     summary: llama.cpp Engine using default CPU instruction sets
     description: LLM inference in C/C++
-#    version: *llamacpp-tag
+    version: *llamacpp-tag
 
   llamacpp-avx512:
     type: standard
     summary: llama.cpp Engine using default and AVX512 CPU instruction sets
     description: LLM inference in C/C++
-#    version: *llamacpp-tag
+    version: *llamacpp-tag
 
   llamacpp-cuda:
     type: standard
     summary: llama.cpp Engine for NVIDIA GPUs using CUDA
     description: LLM inference in C/C++
-#    version: *llamacpp-tag
+    version: *llamacpp-tag
 
   # 
   # Models
