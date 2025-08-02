@@ -96,38 +96,38 @@ parts:
       # move everything, including the staged packages
       "*": (component/llamacpp)
 
-#  llamacpp-avx512:
-#    <<: *llamacpp-part
-#    cmake-parameters:
-#      - -DLLAMA_CURL=OFF
-#      - -DGGML_NATIVE=OFF
-#      - -DGGML_AVX512=ON
-#    organize:
-#      "*": (component/llamacpp-avx512)
-#
-#  llamacpp-cuda:
-#    <<: *llamacpp-part
-#    build-packages:
-#      - to amd64: # see also the overrides
-#        - nvidia-cuda-toolkit
-#    # stage-packages:
-#    #   - libgomp1
-#    #   - libcudart12
-#    #   - libcublas12
-#    cmake-parameters:
-#      - -DLLAMA_CURL=OFF
-#      - -DGGML_NATIVE=OFF
-#      - -DGGML_CUDA=ON
-#      - -DCMAKE_CUDA_ARCHITECTURES=all-major
-#    override-pull: &amd64-only |
-#      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
-#        craftctl default
-#      fi
-#    override-build: *amd64-only
-#    override-stage: *amd64-only
-#    override-prime: *amd64-only
-#    organize:
-#      "*": (component/llamacpp-cuda)
+  llamacpp-avx512:
+    <<: *llamacpp-part
+    cmake-parameters:
+      - -DLLAMA_CURL=OFF
+      - -DGGML_NATIVE=OFF
+      - -DGGML_AVX512=ON
+    organize:
+      "*": (component/llamacpp-avx512)
+
+  llamacpp-cuda:
+    <<: *llamacpp-part
+    build-packages:
+      - to amd64: # see also the overrides
+        - nvidia-cuda-toolkit
+    # stage-packages:
+    #   - libgomp1
+    #   - libcudart12
+    #   - libcublas12
+    cmake-parameters:
+      - -DLLAMA_CURL=OFF
+      - -DGGML_NATIVE=OFF
+      - -DGGML_CUDA=ON
+      - -DCMAKE_CUDA_ARCHITECTURES=all-major
+    override-pull: &amd64-only |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        craftctl default
+      fi
+    override-build: *amd64-only
+    override-stage: *amd64-only
+    override-prime: *amd64-only
+    organize:
+      "*": (component/llamacpp-cuda)
 
   model-qwen2-5-vl-3b-instruct-q4-k-m:
     source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
