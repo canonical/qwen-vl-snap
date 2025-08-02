@@ -128,30 +128,30 @@ parts:
 #    override-prime: *amd64-only
 #    organize:
 #      "*": (component/llamacpp-cuda)
-#
-#  model-qwen2-5-vl-3b-instruct-q4-k-m:
-#    source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
-#    plugin: dump
-#    organize:
-#      "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
-#
-#  mmproj-qwen2-5-vl-3b-instruct-q8-0:
-#    source: components/mmproj-qwen2-5-vl-3b-instruct-q8-0
-#    plugin: dump
-#    organize:
-#      "*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
-#
-#  model-qwen2-5-vl-7b-instruct-q4-k-m:
-#    source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
-#    plugin: dump
-#    organize:
-#      "*": (component/model-qwen2-5-vl-7b-instruct-q4-k-m)
-#
-#  mmproj-qwen2-5-vl-7b-instruct-q8-0:
-#    source: components/mmproj-qwen2-5-vl-7b-instruct-q8-0
-#    plugin: dump
-#    organize:
-#      "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
+
+  model-qwen2-5-vl-3b-instruct-q4-k-m:
+    source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
+    plugin: dump
+    organize:
+      "*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
+
+  mmproj-qwen2-5-vl-3b-instruct-q8-0:
+    source: components/mmproj-qwen2-5-vl-3b-instruct-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
+
+  model-qwen2-5-vl-7b-instruct-q4-k-m:
+    source: components/model-qwen2-5-vl-7b-instruct-q4-k-m
+    plugin: dump
+    organize:
+      "*": (component/model-qwen2-5-vl-7b-instruct-q4-k-m)
+
+  mmproj-qwen2-5-vl-7b-instruct-q8-0:
+    source: components/mmproj-qwen2-5-vl-7b-instruct-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
 
 components:
   #

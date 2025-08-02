@@ -46,35 +46,30 @@ jobs:
         uses: snapcore/action-build@v1
         id: snapcraft
 
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: ${{env.SNAP_NAME}}_${{github.run_number}}_${{matrix.runs.architecture}}
-#          path: |
-#            *.snap
-#            *.comp
-#          if-no-files-found: error
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.SNAP_NAME}}_${{github.run_number}}_${{matrix.runs.architecture}}
+          path: |
+            *.snap
+            *.comp
+          if-no-files-found: error
 
-        # Requires STORE_LOGIN secret set:
-        # snapcraft export-login --snaps qwen-vl --channels edge/* --acls package_access,package_push,package_update,package_release --expires 2026-08-01T00:00:00Z
+      # Requires STORE_LOGIN secret set. Export with:
+      # snapcraft export-login --snaps qwen-vl --channels edge/* --acls package_access,package_push,package_update,package_release --expires 2026-08-01T00:00:00Z
       - name: Publish snap
-#        uses: snapcore/action-publish@v1
-#        if: github.ref == 'refs/heads/main'
-#        env:
-#          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
-#        with:
-#          snap: ${{ steps.snapcraft.outputs.snap }}
-#          release: latest/edge/ci
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         run: |
           channel="latest/edge/ci"
           echo "Branch name: ${{ github.ref_name }}"
-          echo "PR Number: ${{ github.event.number }}"
+          echo "Event number: ${{ github.event.number }}"
           
           if [[ ${{ github.ref_name }} != "refs/heads/main" ]]; then
             echo "Not on main branch"
             channel="latest/edge/pr${{ github.event.number }}"
           fi
           
-          echo "Channel: $channel"
+          echo "Uploading to channel: $channel"
 
           echo "y" | ./upload.sh $channel
