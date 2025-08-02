@@ -27,7 +27,7 @@ jobs:
       # Update snapd as we need a recent one to support components
       - name: Update snapd
         run: |
-          sudo snap refresh snapd
+          sudo snap refresh snapd --channel=edge
 
       - name: Checkout code
         uses: actions/checkout@v4
