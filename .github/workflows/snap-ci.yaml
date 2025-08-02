@@ -70,11 +70,11 @@ jobs:
           echo "Branch name: ${{ github.ref_name }}"
           echo "PR Number: ${{ github.event.number }}"
           
-          if [[ "refs/heads/main" != ${{ github.ref_name }} ]]; then
+          if [[ ${{ github.ref_name }} != "refs/heads/main" ]]; then
             echo "Not on main branch"
             channel="latest/edge/pr${{ github.event.number }}"
           fi
           
-          echo "Channel: ${{ channel }}"
+          echo "Channel: $channel"
 
-          echo "y" | ./upload.sh ${{ channel }}
+          echo "y" | ./upload.sh $channel
