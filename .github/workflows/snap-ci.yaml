@@ -1,10 +1,10 @@
 name: Snap CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
   # Allow manual trigger
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
       # Update snapd as we need a recent one to support components
       - name: Update snapd
         run: |
-          sudo snap refresh snapd --channel=edge
+          sudo snap refresh snapd
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,28 +46,19 @@ jobs:
         uses: snapcore/action-build@v1
         id: snapcraft
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{env.SNAP_NAME}}_${{github.run_number}}_${{matrix.runs.architecture}}
-          path: |
-            *.snap
-            *.comp
-          if-no-files-found: error
-
       # Requires STORE_LOGIN secret set. Export with:
       # snapcraft export-login --snaps qwen-vl --channels latest/edge/* --acls package_access,package_push,package_update,package_release --expires 2026-08-01T00:00:00Z
       - name: Publish snap
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         run: |
-          channel="latest/edge/ci"
+          channel="latest/edge/$(git rev-parse --short HEAD)"
           echo "Branch name: ${{ github.ref_name }}"
           echo "Event number: ${{ github.event.number }}"
           
           if [[ "${{ github.ref_name }}" != "refs/heads/main" ]]; then
             echo "Not on main branch"
-            channel="latest/edge/pr${{ github.event.number }}"
+            channel="latest/edge/pr-${{ github.event.number }}"
           fi
           
           echo "Uploading to channel: $channel"
