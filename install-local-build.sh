@@ -37,10 +37,11 @@ sudo snap install --dangerous $snap_name_*_$architecture.snap
 #sudo snap connect $snap_name:home
 sudo snap connect $snap_name:hardware-observe
 
-# Set stack name
-sudo snap set $snap_name stack="$stack"
 
 # Install stack components
 cat "./stacks/$stack/stack.yaml" | yq .components[] | while read -r component; do
     sudo snap install --dangerous ./$snap_name+"$component"_*.comp
 done
+
+# Set stack
+sudo $snap_name use "$stack" --assume-yes

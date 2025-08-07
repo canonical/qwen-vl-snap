@@ -32,16 +32,13 @@ plugs:
     
 hooks:
   install:
-    environment: &install-env
+    environment:
       # To load libigdrcl.so, for Intel GPU vRAM
       OCL_ICD_VENDORS: $SNAP/etc/OpenCL/vendors
-    plugs: &install-plugs
-      # For hardware-info
+    plugs:
+      # For hardware detection
       - hardware-observe
       - opengl
-  configure:
-    environment: *install-env
-    plugs: *install-plugs
 
 parts:
   app-scripts:
@@ -205,34 +202,23 @@ components:
     version: *snap-version
 
 apps:
-  # For testing purposes. Use sudo <snap>.re-install
-  # Connecting the hardware-observe interface is required even if installed in dev mode!
-  re-install:
-    command: meta/hooks/install
-    plugs: *install-plugs
-
-  hardware-info:
-    command: bin/hardware-info
+  qwen-vl:
+    command: bin/stack
     plugs:
       # For hardware detection
-      - hardware-observe
       - opengl
+      - hardware-observe
+      # To access server over network socket
+      - network
     environment:
       # To load libigdrcl.so, for Intel GPU vRAM
       OCL_ICD_VENDORS: $SNAP/etc/OpenCL/vendors
+      CHAT: $SNAP/bin/chat.sh
 
-  init:
-    command: bin/init.sh
-    plugs:
-      # Needed to download resources
-      - network
-      # For hardware detection
-      - hardware-observe
-      - opengl
-
-  chat: &chat-app
-    command-chain: [bin/wait-for-server.sh]
-    command: bin/chat.sh
+  server:
+    command: bin/server.sh
+    daemon: simple
+    install-mode: disable
     plugs:
       # For inference and hardware detection (via init)
       - opengl
@@ -253,10 +239,3 @@ apps:
       # Needed for shared libraries used by llama.cpp
       # TODO: Should this instead be added in an env file to llamacpp component
       ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
-
-  server:
-    <<: *chat-app
-    command-chain: []
-    command: bin/server.sh
-    daemon: simple
-    install-mode: disable
