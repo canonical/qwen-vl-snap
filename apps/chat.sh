@@ -14,6 +14,5 @@ fi
 
 export OPENAI_BASE_URL="http://localhost:$port/$api_base_path"
 export MODEL_NAME="$model_name"
-export REASONING_MODEL=true
 
 $SNAP/bin/go-chat-client
