@@ -1,5 +1,5 @@
 name: cpu
-description: A stack for CPUs with a good balance between speed and accuracy
+description: Use CPU with a good balance between speed and accuracy
 vendor: Canonical Ltd
 grade: stable
 devices:
