@@ -1,5 +1,2 @@
-# bash completion V2 for qwen-vl                              -*- shell-script -*-
-
-source <($SNAP/bin/qwen-vl completion bash)
-
-# ex: ts=4 sw=4 et filetype=sh
+# bash completion for the app named after the snap
+source <($SNAP/bin/$SNAP_NAME completion bash)
