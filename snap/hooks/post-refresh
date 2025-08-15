@@ -11,4 +11,4 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 # Set all stacks as snap config
 # 
 
-stack load
+$SNAP_NAME load

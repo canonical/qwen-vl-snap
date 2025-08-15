@@ -58,5 +58,3 @@ while true; do
   sleep 0.5
 
 done
-# start the chat client
-exec "$@"
