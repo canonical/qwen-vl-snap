@@ -2,7 +2,7 @@
 
 # Unset the _init_completion function from the bash-completion package to force
 # use of the basic but functional internal implementation.
-# Issue TBA
+# Issue: https://github.com/canonical/stack-utils/issues/115
 unset -f _init_completion
 
 source <($SNAP/bin/$SNAP_NAME completion bash)
