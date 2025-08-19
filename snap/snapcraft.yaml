@@ -160,8 +160,8 @@ parts:
     organize:
       "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
 
-  model-qwen2-5-vl-3b-instruct-openvino-int4:
-    source: components/model-qwen2-5-vl-3b-instruct-openvino-int4
+  model-qwen2-5-vl-3b-instruct-ov-int4:
+    source: components/model-qwen2-5-vl-3b-instruct-ov-int4
     plugin: dump
     override-build: |
       # At startup OVMS (single model mode) creates the mediapipe graph file inside the model directory.
@@ -175,7 +175,7 @@ parts:
 
       craftctl default
     organize:
-      "*": (component/model-qwen2-5-vl-3b-instruct-openvino-int4)
+      "*": (component/model-qwen2-5-vl-3b-instruct-ov-int4)
 
   opencl-driver:
     # Includes the OpenCL runtime for Intel GPU support
@@ -289,7 +289,7 @@ components:
     description: Multimodal projector for Qwen 2.5 VL 7B
     version: *snap-version
 
-  model-qwen2-5-vl-3b-instruct-openvino-int4:
+  model-qwen2-5-vl-3b-instruct-ov-int4:
     type: standard
     summary: Qwen 2.5 VL 3B for OpenVINO
     description: Model with 3B parameters in OpenVINO format
