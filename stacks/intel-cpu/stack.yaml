@@ -8,8 +8,8 @@ devices:
       architecture: amd64
       manufacturer-id: GenuineIntel
 
-memory: 4G
-disk-space: 8G
+memory: 5G
+disk-space: 10G
 components:
   - &e openvino-model-server
   - &m model-qwen2-5-vl-3b-instruct-ov-int4
