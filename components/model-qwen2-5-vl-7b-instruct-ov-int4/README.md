@@ -1,6 +1,6 @@
 # Qwen 2.5 VL 7B Optimized for OpenVINO
 
-The Qwen2.5-VL-7B-Instruct-openvino-int4 subdirectory contains the model in Intermediate Representation for use with OpenVINO.
+The Qwen2.5-VL-7B-Instruct-int4-npu-ov subdirectory contains the model in Intermediate Representation for use with OpenVINO.
 
 To export the model, one can use optimum-intel.
 This can be done from Huggingface as follows.
@@ -28,5 +28,5 @@ pip show optimum-intel
 
 Export the model:
 ```
-optimum-cli export openvino --model Qwen/Qwen2.5-VL-7B-Instruct Qwen2.5-VL-7B-Instruct-openvino-int4 --weight-format int4
+optimum-cli export openvino --weight-format int4 --sym --group-size -1 --model Qwen/Qwen2.5-VL-7B-Instruct Qwen2.5-VL-7B-Instruct-int4-npu-ov
 ```
