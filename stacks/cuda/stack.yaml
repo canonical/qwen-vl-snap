@@ -1,7 +1,7 @@
 name: cuda
 description: Use Nvidia GPUs via CUDA
 vendor: Canonical Ltd
-grade: devel
+grade: stable
 devices:
   all:
     - type: cpu
@@ -9,10 +9,10 @@ devices:
       flags: [sse4_2, f16c, fma, avx, avx2]
     - type: gpu
       vendor-id: 0x10de # Nvidia Corporation
-      vram: 5G
+      vram: 6300M
       # compute-capability: 5.0
-memory: 4G
-disk-space: 8G
+memory: 5G
+disk-space: 10G
 components:
   - &engine llamacpp-cuda
   - &model model-qwen2-5-vl-7b-instruct-q4-k-m

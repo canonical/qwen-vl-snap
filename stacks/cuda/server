@@ -10,4 +10,5 @@ exec "$engine/usr/local/bin/llama-server" \
 --mmproj "$MMPROJ_FILE" \
 --port "$port" \
 --host "$host" \
+--n-gpu-layers 29 \
 "$@"
