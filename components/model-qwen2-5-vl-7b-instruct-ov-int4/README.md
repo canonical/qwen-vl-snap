@@ -28,7 +28,7 @@ pip show optimum-intel
 
 Export the model to be NPU-friendly by using symmetric INT4 quantization (--sym).
 For models with more than ~1-2B parameters, channel-wise quantization should be used (--group-size -1) for NPUs.
-We add `npu` in the resulting file name to remind us it is exported using these NPU-friendly parameters.
+We add `npu` in the output directory name to remind us it is exported using these NPU-friendly parameters.
 ```
 optimum-cli export openvino --weight-format int4 --sym --group-size -1 --model Qwen/Qwen2.5-VL-7B-Instruct Qwen2.5-VL-7B-Instruct-int4-npu-ov
 ```
