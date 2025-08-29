@@ -13,10 +13,14 @@ if [ ! -d "$model_component_path" ]; then
     echo "Missing component: $model_component_path"
     exit 1
 fi
-source "$model_component_path/init" # imports model config
-# model-name snap option is only set after calling init
-model_name="$(snapctl get model-name)"
 
+"$model_component_path/init"
+
+model_name="$(snapctl get model-name)"
+if [ -z "$model_name" ]; then
+    echo "model_name configuration not set"
+    exit 1
+fi
 
 # Add staged shared objects
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib"
