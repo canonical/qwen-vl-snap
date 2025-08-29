@@ -2,26 +2,27 @@
 
 # TODO: should most of this script move to the ovms component?
 
-engine="$SNAP_COMPONENTS/$(snapctl get engine)"
-model="$SNAP_COMPONENTS/$(snapctl get model)"
+engine_component_path="$SNAP_COMPONENTS/$(snapctl get engine)"
+model_component_path="$SNAP_COMPONENTS/$(snapctl get model)"
+model_name="$(snapctl get model-name)"
 
-if [ ! -d "$model" ]; then
-    echo "Missing component: $model"
+if [ ! -d "$model_component_path" ]; then
+    echo "Missing component: $model_component_path"
     exit 1
 fi
 
-source "$model/init" # imports model config
+source "$model_component_path/init" # imports model config
 
-if [ ! -d "$engine" ]; then
-    echo "Missing component: $engine"
+if [ ! -d "$engine_component_path" ]; then
+    echo "Missing component: $engine_component_path"
     exit 1
 fi
 
 
 # Add staged shared objects
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine/lib"
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine/lib/python"
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine/usr/lib/$ARCH_TRIPLET"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib/python"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/usr/lib/$ARCH_TRIPLET"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/local/lib"
 export LD_LIBRARY_PATH
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
@@ -30,7 +31,7 @@ echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 export OCL_ICD_VENDORS=$SNAP/etc/OpenCL/vendors
 
 # Add Python dependencies
-export PYTHONPATH="$engine/lib/python:$engine/lib/python3.12/site-packages"
+export PYTHONPATH="$engine_component_path/lib/python:$engine_component_path/lib/python3.12/site-packages"
 echo "PYTHONPATH: $PYTHONPATH"
 
 target_device="$(snapctl get target-device)"
@@ -52,10 +53,10 @@ fi
 # Issue: https://github.com/openvinotoolkit/model_server/issues/3492
 
 set -x
-$engine/bin/ovms \
+$engine_component_path/bin/ovms \
     --rest_port "$port" \
     --rest_bind_address "$host" \
-    --source_model "$MODEL_NAME" \
-    --model_repository_path "$model" \
+    --source_model "$model_name" \
+    --model_repository_path "$model_component_path" \
     --target_device "$target_device" \
     --cache_size 2 "${extra_args[@]}"

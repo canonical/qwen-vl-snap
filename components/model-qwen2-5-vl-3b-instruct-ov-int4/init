@@ -1,3 +1,0 @@
-#!/bin/bash -eu
-
-export MODEL_NAME="Qwen2.5-VL-3B-Instruct-int4-npu-ov"
