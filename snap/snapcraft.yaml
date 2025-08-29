@@ -20,6 +20,14 @@ layout:
   # This is to avoid runtime errors and AppArmor denials
   /etc/wgetrc:
     bind-file: $SNAP/etc/wgetrc
+  # OpenCL looks in /etc/OpenCL/vendors for .icd files containing the paths to shared objects
+  /etc/OpenCL/vendors:
+    bind: $SNAP/etc/OpenCL/vendors
+  # Intel icd files use an absolute path to Intel OpenCL shared objects. Use a layout to mount the so files at the expected location
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/intel-opencl:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/intel-opencl
+  # NVIDIA icd specifies only the shared object name: libnvidia-opencl.so.1
+  # libnvidia-opencl.so.1 is inside /snap/stack-utils/x3/usr/lib/x86_64-linux-gnu/, which is already in LD_LIBRARY_PATH
 
 plugs:
   intel-npu:
@@ -155,6 +163,78 @@ parts:
     organize:
       "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
 
+  model-qwen2-5-vl-7b-instruct-ov-int4:
+    source: components/model-qwen2-5-vl-7b-instruct-ov-int4
+    plugin: dump
+    override-build: |
+      # At startup OVMS (single model mode) creates the mediapipe graph file inside the model directory.
+      # This directory is read-only when it is inside a component.
+      # By adding a symlink with the file's name inside the model directory, pointing to /tmp,
+      # OVMS will follow the symlink during runtime and instead create the file in /tmp.
+      mediapipe_graph_path="Qwen2.5-VL-7B-Instruct-int4-npu-ov/graph.pbtxt"
+      if [ ! -L "$mediapipe_graph_path" ]; then
+        ln -s /tmp/graph.pbtxt "$mediapipe_graph_path"
+      fi
+
+      craftctl default
+    organize:
+      "*": (component/model-qwen2-5-vl-7b-instruct-ov-int4)
+
+  opencl-driver:
+    # Includes the OpenCL runtime for Intel GPU support
+    plugin: nil
+    build-packages:
+      - wget
+    override-build: |
+      # Only install intel opencl drivers on amd64
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        # Legacy Intel OpenCL Runtime
+        mkdir -p $CRAFT_PART_BUILD/opencl-intel-legacy1
+        cd $CRAFT_PART_BUILD/opencl-intel-legacy1
+        wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.36/intel-level-zero-gpu-legacy1_1.5.30872.36_amd64.deb
+        wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.36/intel-opencl-icd-legacy1_24.35.30872.36_amd64.deb
+        dpkg --root=$CRAFT_PART_INSTALL --force-all -i *.deb
+      
+        # Recent Intel OpenCL Runtime
+        mkdir -p $CRAFT_PART_BUILD/opencl-intel
+        cd $CRAFT_PART_BUILD/opencl-intel
+        wget https://github.com/intel/intel-graphics-compiler/releases/download/v2.5.6/intel-igc-core-2_2.5.6+18417_amd64.deb
+        wget https://github.com/intel/intel-graphics-compiler/releases/download/v2.5.6/intel-igc-opencl-2_2.5.6+18417_amd64.deb
+        wget https://github.com/intel/compute-runtime/releases/download/24.52.32224.5/intel-level-zero-gpu_1.6.32224.5_amd64.deb
+        wget https://github.com/intel/compute-runtime/releases/download/24.52.32224.5/intel-opencl-icd_24.52.32224.5_amd64.deb
+        wget https://github.com/intel/compute-runtime/releases/download/24.52.32224.5/libigdgmm12_22.5.5_amd64.deb
+        dpkg --root=$CRAFT_PART_INSTALL --force-all -i *.deb
+      
+        # Two symlinks are created by installing opencl: 
+        # etc/alternatives/ocloc -> /usr/bin/ocloc-24.52.1, usr/bin/ocloc -> /etc/alternatives/ocloc
+        # These point to outside of the snap and fails store review. They are not required, so remove it.
+        rm $CRAFT_PART_INSTALL/etc/alternatives/ocloc
+        rm $CRAFT_PART_INSTALL/usr/bin/ocloc
+      
+        cd $CRAFT_PART_BUILD
+      fi # End of intel-opencl driver installation
+      
+      craftctl default
+
+  openvino-model-server:
+    plugin: dump
+    source: https://github.com/openvinotoolkit/model_server/releases/download/v2025.2.1/ovms_ubuntu24_python_on.tar.gz
+    organize:
+      "*": (component/openvino-model-server)
+    stage-packages:
+      - libxml2
+      - curl
+      - libpython3.12
+
+  openvino-model-server-python-dependencies:
+    plugin: python
+    source: components/openvino-model-server
+    python-packages:
+      - Jinja2==3.1.6
+      - MarkupSafe==3.0.2
+    organize:
+      "*": (component/openvino-model-server)
+
 components:
   #
   # Engines
@@ -177,6 +257,12 @@ components:
     summary: llama.cpp Engine for NVIDIA GPUs using CUDA
     description: LLM inference in C/C++
     version: *llamacpp-tag
+
+  openvino-model-server:
+    type: standard
+    summary: OpenVINO Model Server
+    description: OpenVINO Model Server for serving models
+    version: v2025.2.1
 
   # 
   # Models
@@ -204,6 +290,12 @@ components:
     type: standard
     summary: MMProj Qwen 2.5 VL 7B
     description: Multimodal projector for Qwen 2.5 VL 7B
+    version: *snap-version
+
+  model-qwen2-5-vl-7b-instruct-ov-int4:
+    type: standard
+    summary: Qwen 2.5 VL 7B for OpenVINO
+    description: Model with 7B parameters in OpenVINO format
     version: *snap-version
 
 apps:
