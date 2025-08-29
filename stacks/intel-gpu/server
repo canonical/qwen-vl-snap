@@ -3,20 +3,19 @@
 # TODO: should most of this script move to the ovms component?
 
 engine_component_path="$SNAP_COMPONENTS/$(snapctl get engine)"
-model_component_path="$SNAP_COMPONENTS/$(snapctl get model)"
-model_name="$(snapctl get model-name)"
-
-if [ ! -d "$model_component_path" ]; then
-    echo "Missing component: $model_component_path"
-    exit 1
-fi
-
-source "$model_component_path/init" # imports model config
-
 if [ ! -d "$engine_component_path" ]; then
     echo "Missing component: $engine_component_path"
     exit 1
 fi
+
+model_component_path="$SNAP_COMPONENTS/$(snapctl get model)"
+if [ ! -d "$model_component_path" ]; then
+    echo "Missing component: $model_component_path"
+    exit 1
+fi
+source "$model_component_path/init" # imports model config
+# model-name snap option is only set after calling init
+model_name="$(snapctl get model-name)"
 
 
 # Add staged shared objects
