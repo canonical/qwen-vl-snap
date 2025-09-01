@@ -15,7 +15,6 @@ environment:
   # Workaround until it gets set by snapd
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
   # Needed for setting llamacpp's shared libraries path in init script
-  # TODO: Should this instead be added in an env file to llamacpp component
   ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
 
 layout:
