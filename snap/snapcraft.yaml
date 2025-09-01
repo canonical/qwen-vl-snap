@@ -139,7 +139,12 @@ parts:
       if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
         craftctl default
       fi
-    override-build: *amd64-only
+    override-build:
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        craftctl default
+        # Add scripts from snap's repo
+        cp $CRAFT_PROJECT_DIR/components/llamacpp/* $CRAFT_PART_INSTALL/
+      fi
     override-stage: *amd64-only
     override-prime: *amd64-only
     organize:

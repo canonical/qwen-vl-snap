@@ -18,6 +18,11 @@ if [[ "$verbose_logging" == "true" ]]; then
   extra_args+=("--verbose")
 fi
 
+gpu_layers="$(snapctl get gpu-layers)"
+if [ -n "$gpu_layers" ]; then
+  extra_args+=("--n-gpu-layers" "$gpu_layers")
+fi
+
 server_shared_objects="$component_directory/usr/lib/$ARCH_TRIPLET:$component_directory/usr/local/lib"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$server_shared_objects"
 
