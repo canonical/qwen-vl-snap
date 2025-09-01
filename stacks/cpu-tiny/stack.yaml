@@ -13,11 +13,8 @@ devices:
 memory: 4G
 disk-space: 8G
 components:
-  - &engine llamacpp
-  - &model model-qwen2-5-vl-3b-instruct-q4-k-m
-  - &mmproj mmproj-qwen2-5-vl-3b-instruct-q8-0
+  - llamacpp
+  - model-qwen2-5-vl-3b-instruct-q4-k-m
+  - mmproj-qwen2-5-vl-3b-instruct-q8-0
 configurations:
-  engine: *engine
-  model: *model
-  multimodel-projector: *mmproj
   http.base-path: v1

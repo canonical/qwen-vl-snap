@@ -3,7 +3,11 @@
 # This script waits for the server to start before running the commands in the arguments.
 # The script is expected to be used in the command chain of the chat app.
 
-stack="$(snapctl get stack)"
+engine_type=$(snapctl get engine-type)
+if [ -z "$engine_type" ]; then
+  echo "Engine type is not set"
+  exit 1
+fi
 
 TIMEOUT=60
 WAIT_PRINTED=false
@@ -26,7 +30,7 @@ while true; do
     exit 1
   fi
 
-  "$SNAP/stacks/$stack/check-server"
+  "$SNAP/apps/check-server-$engine_type"
   exit_code=$?
 
   case $exit_code in

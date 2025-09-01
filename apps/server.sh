@@ -1,5 +1,9 @@
 #!/bin/bash -u
 
-stack="$(snapctl get stack)"
+engine_type=$(snapctl get engine-type)
+if [ -z "$engine_type" ]; then
+  echo "Engine type is not set"
+  exit 1
+fi
 
-exec "$SNAP/stacks/$stack/server" "$@"
+exec "$SNAP/apps/run-server-$engine_type" "$@"

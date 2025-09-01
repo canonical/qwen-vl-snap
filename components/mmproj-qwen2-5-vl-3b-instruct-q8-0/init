@@ -4,4 +4,6 @@ component_name=mmproj-qwen2-5-vl-3b-instruct-q8-0
 
 mmproj_filename=mmproj-Qwen2.5-VL-3B-Instruct-Q8_0.gguf
 mmproj_path=$SNAP_COMPONENTS/$component_name/$mmproj_filename
-export MMPROJ_FILE=$mmproj_path
+snapctl set mmproj-file-path="$mmproj_path"
+
+snapctl set mmproj-type=gguf

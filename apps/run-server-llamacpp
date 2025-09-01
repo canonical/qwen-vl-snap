@@ -1,0 +1,25 @@
+#!/bin/bash -eu
+
+additional_arguments=""
+
+port="$(snapctl get http.port)"
+host="$(snapctl get http.host)"
+engine_executable=$(snapctl get engine-executable)
+model_file_path="$(snapctl get model-file-path)"
+
+mmproj_file_path="$(snapctl get mmproj-file-path)"
+if [ -n "$engine_additional_ldlib_path" ]; then
+  additional_arguments="$additional_arguments --mmproj $mmproj_file_path"
+fi
+
+engine_additional_ldlib_path=$(snapctl get engine-additional-ldlib-path)
+if [ -n "$engine_additional_ldlib_path" ]; then
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_additional_ldlib_path"
+fi
+
+exec "$engine_executable" \
+--model "$model_file_path" \
+--port "$port" \
+--host "$host" \
+"$additional_arguments" \
+"$@"
