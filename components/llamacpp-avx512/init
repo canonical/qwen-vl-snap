@@ -1,8 +1,0 @@
-#!/bin/bash -eux
-
-# See https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script/246128#246128
-component_directory=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-# Maybe this script can return a list of key-values, which can be processed by the caller, making maintenance of this file easier
-snapctl set server="$component_directory/server.sh"
-snapctl set check-server="$component_directory/check-server.sh"

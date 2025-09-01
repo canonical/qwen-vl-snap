@@ -107,7 +107,7 @@ parts:
     override-build: |
       craftctl default
       # Add scripts from snap's repo
-      cp $CRAFT_PROJECT_DIR/components/llamacpp/* $CRAFT_PART_INSTALL/
+      cp $CRAFT_PROJECT_DIR/components/$CRAFT_PART_NAME/* $CRAFT_PART_INSTALL/
     organize:
       # move everything, including the staged packages
       "*": (component/llamacpp)
@@ -143,7 +143,7 @@ parts:
       if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
         craftctl default
         # Add scripts from snap's repo
-        cp $CRAFT_PROJECT_DIR/components/llamacpp/* $CRAFT_PART_INSTALL/
+        cp $CRAFT_PROJECT_DIR/components/$CRAFT_PART_NAME/* $CRAFT_PART_INSTALL/
       fi
     override-stage: *amd64-only
     override-prime: *amd64-only
