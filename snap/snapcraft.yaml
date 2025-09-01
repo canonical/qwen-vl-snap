@@ -106,8 +106,8 @@ parts:
       - libgomp1
     override-build: |
       craftctl default
-      # Add init snap's repo
-      cp $CRAFT_PROJECT_DIR/components/llamacpp/init $CRAFT_PART_INSTALL/
+      # Add scripts from snap's repo
+      cp $CRAFT_PROJECT_DIR/components/llamacpp/* $CRAFT_PART_INSTALL/
     organize:
       # move everything, including the staged packages
       "*": (component/llamacpp)

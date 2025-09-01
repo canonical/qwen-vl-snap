@@ -34,7 +34,7 @@ yq stacks/$stack/stack.yaml > /dev/null
 sudo snap install --dangerous $snap_name_*_$architecture.snap
 
 # Connect interfaces
-#sudo snap connect $snap_name:home
+sudo snap connect $snap_name:home
 sudo snap connect $snap_name:hardware-observe
 
 

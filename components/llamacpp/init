@@ -1,12 +1,9 @@
 #!/bin/bash -eux
 
-# Use parent directory name as component name
-component_name=$(dirname "$(readlink -f "$0")")
-#component_name=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-#component_name=llamacpp
+# Use parent directory name as component name.
+# See https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script/246128#246128
+component_directory=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-component_directory=$SNAP_COMPONENTS/$component_name/
-
-snapctl set engine-type="llamacpp"
-snapctl set engine-executable="$component_directory/usr/local/bin/llama-server"
-snapctl set engine-additional-ldlib-path="$component_directory/usr/lib/$ARCH_TRIPLET:$component_directory/usr/local/lib"
+# Maybe this script can return a list of key-values, which can be processed by the caller, making maintenance of this file easier
+snapctl set server="$component_directory/server.sh"
+snapctl set check-server="$component_directory/check-server.sh"
