@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/bash -eux
 
 # Can get component name dynamically:
 #  SCRIPT_DIR=$(dirname "$(readlink -f "$0")")

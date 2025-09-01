@@ -14,6 +14,9 @@ compression: lzo
 environment:
   # Workaround until it gets set by snapd
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
+  # Needed for setting llamacpp's shared libraries path in init script
+  # TODO: Should this instead be added in an env file to llamacpp component
+  ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
 
 layout:
   # Wget's default config file
@@ -102,6 +105,10 @@ parts:
       - -DGGML_NATIVE=OFF
     stage-packages:
       - libgomp1
+    override-build: |
+      craftctl default
+      # Add init snap's repo
+      cp $CRAFT_PROJECT_DIR/components/llamacpp/init $CRAFT_PART_INSTALL/
     organize:
       # move everything, including the staged packages
       "*": (component/llamacpp)
@@ -332,8 +339,4 @@ apps:
       # Intel NPU access (device node)
       - intel-npu 
       # Intel NPU access (libs) 
-      - npu-libs  
-    environment:
-      # Needed for shared libraries used by llama.cpp
-      # TODO: Should this instead be added in an env file to llamacpp component
-      ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
+      - npu-libs
