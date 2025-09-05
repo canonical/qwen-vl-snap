@@ -66,5 +66,5 @@ $engine_component_path/bin/ovms \
     --target_device "$target_device" \
     --task text_generation \
     --cache_size 2 \
-    "${extra_args[@]}"
+    "${extra_args[@]}" \
     "$@"
