@@ -13,8 +13,9 @@ if [ "${verbose}" = "true" ]; then
 fi
 
 gpu_layers="$(snapctl get gpu-layers)"
-if [[ -n "$gpu_layers" ]]; then
-  extra_args+=("--n-gpu-layers" "$gpu_layers")
+if [[ -z "$gpu_layers" ]]; then
+  echo "gpu-layers snap option is not set"
+  exit 1
 fi
 
 exec "$engine/usr/local/bin/llama-server" \
@@ -22,5 +23,6 @@ exec "$engine/usr/local/bin/llama-server" \
 --mmproj "$MMPROJ_FILE" \
 --port "$port" \
 --host "$host" \
+--n-gpu-layers "$gpu_layers" \
 "${extra_args[@]}" \
 "$@"
