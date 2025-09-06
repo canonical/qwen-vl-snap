@@ -2,9 +2,9 @@
 
 # TODO: should most of this script move to the ovms component?
 
-engine_component_path="$SNAP_COMPONENTS/$(snapctl get engine)"
-if [ ! -d "$engine_component_path" ]; then
-    echo "Missing component: $engine_component_path"
+runtime="$SNAP_COMPONENTS/$(snapctl get runtime)"
+if [ ! -d "$runtime" ]; then
+    echo "Missing component: $runtime"
     exit 1
 fi
 
@@ -23,9 +23,9 @@ if [ -z "$model_name" ]; then
 fi
 
 # Add staged shared objects
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib"
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib/python"
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/usr/lib/$ARCH_TRIPLET"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$runtime/lib"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$runtime/lib/python"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$runtime/usr/lib/$ARCH_TRIPLET"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/local/lib"
 export LD_LIBRARY_PATH
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
@@ -34,7 +34,7 @@ echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 export OCL_ICD_VENDORS=$SNAP/etc/OpenCL/vendors
 
 # Add Python dependencies
-export PYTHONPATH="$engine_component_path/lib/python:$engine_component_path/lib/python3.12/site-packages"
+export PYTHONPATH="$runtime/lib/python:$runtime/lib/python3.12/site-packages"
 echo "PYTHONPATH: $PYTHONPATH"
 
 target_device="$(snapctl get target-device)"
@@ -56,7 +56,7 @@ fi
 # Issue: https://github.com/openvinotoolkit/model_server/issues/3492
 
 set -x
-$engine_component_path/bin/ovms \
+$runtime/bin/ovms \
     --rest_port "$port" \
     --rest_bind_address "$host" \
     --source_model "$model_name" \
