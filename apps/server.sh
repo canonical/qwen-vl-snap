@@ -1,5 +1,5 @@
 #!/bin/bash -u
 
-stack="$(snapctl get stack)"
+engine="$(snapctl get engine)"
 
-exec "$SNAP/engines/$stack/server" "$@"
+exec "$SNAP/engines/$engine/server" "$@"
