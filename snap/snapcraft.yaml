@@ -58,11 +58,11 @@ parts:
     organize:
       "*": bin/
 
-  stacks:
-    source: stacks
+  engines:
+    source: engines
     plugin: dump
     organize:
-      "*": stacks/
+      "*": engines/
 
   stack-utils:
     source: stack-utils

@@ -26,7 +26,7 @@ while true; do
     exit 1
   fi
 
-  "$SNAP/stacks/$stack/check-server"
+  "$SNAP/engines/$stack/check-server"
   exit_code=$?
 
   case $exit_code in

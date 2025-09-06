@@ -2,4 +2,4 @@
 
 stack="$(snapctl get stack)"
 
-exec "$SNAP/stacks/$stack/server" "$@"
+exec "$SNAP/engines/$stack/server" "$@"
