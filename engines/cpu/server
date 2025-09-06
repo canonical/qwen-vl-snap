@@ -5,7 +5,7 @@ source "$(dirname "$0")/common.sh"
 port="$(snapctl get http.port)"
 host="$(snapctl get http.host)"
 
-exec "$runtime/usr/local/bin/llama-server" \
+exec "$server/usr/local/bin/llama-server" \
 --model "$MODEL_FILE" \
 --mmproj "$MMPROJ_FILE" \
 --port "$port" \

@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-runtime="$SNAP_COMPONENTS/$(snapctl get runtime)"
+server="$SNAP_COMPONENTS/$(snapctl get server)"
 model="$SNAP_COMPONENTS/$(snapctl get model)"
 mmproj="$SNAP_COMPONENTS/$(snapctl get multimodel-projector)"
 
@@ -17,10 +17,10 @@ fi
 source "$model/init" # exports MODEL_FILE
 source "$mmproj/init" # export MMPROJ_FILE
 
-if [ ! -d "$runtime" ]; then
-    echo "Missing component: $runtime"
+if [ ! -d "$server" ]; then
+    echo "Missing component: $server"
     exit 1
 fi
 
 # For staged shared objects
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$runtime/usr/lib/$ARCH_TRIPLET:$runtime/usr/local/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$server/usr/lib/$ARCH_TRIPLET:$server/usr/local/lib"
