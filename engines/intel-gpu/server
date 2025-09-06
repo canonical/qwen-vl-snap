@@ -62,4 +62,6 @@ $server/bin/ovms \
     --source_model "$model_name" \
     --model_repository_path "$model_component_path" \
     --target_device "$target_device" \
-    --cache_size 2 "${extra_args[@]}"
+    --task text_generation \
+    --cache_size 2 \
+    "${extra_args[@]}"
