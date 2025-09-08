@@ -16,20 +16,20 @@ snapctl set http.host="127.0.0.1"
 snapctl set verbose="false"
 
 #
-# Set all stacks as snap config
+# Set all engine manifests as snap config
 # 
 
 $SNAP_NAME load
 
 #
-# Auto stack selection
+# Auto select an engine
 #
 
 if snapctl is-connected hardware-observe; then
-    $SNAP_NAME use --auto --assume-yes
+    $SNAP_NAME use-engine --auto --assume-yes
 elif lscpu -V &> /dev/null; then
     echo "Able to access hardware info without hardware-observe interface connection: assuming dev mode installation."
-    $SNAP_NAME use --auto --assume-yes
+    $SNAP_NAME use-engine --auto --assume-yes
 else
-    echo "hardware-observe interface not auto connected. Skip auto stack selection."
+    echo "hardware-observe interface not auto connected. Skip auto engine selection."
 fi

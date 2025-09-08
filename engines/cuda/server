@@ -18,7 +18,7 @@ if [[ -z "$gpu_layers" ]]; then
   exit 1
 fi
 
-exec "$engine/usr/local/bin/llama-server" \
+exec "$server/usr/local/bin/llama-server" \
 --model "$MODEL_FILE" \
 --mmproj "$MMPROJ_FILE" \
 --port "$port" \

@@ -1,23 +1,20 @@
-name: cpu
-description: Use CPU with a good balance between speed and accuracy
+name: cpu-avx512
+description: For CPUs with AVX512 support 
 vendor: Canonical Ltd
 grade: stable
 devices:
   any:
     - type: cpu
       architecture: amd64
-      flags: [sse4_2, f16c, fma, avx, avx2]
-    - type: cpu
-      architecture: arm64
-      features: [asimd]  # for ARMv8 ASIMD includes NEON instruction set
+      flags: [sse4_2, f16c, fma, avx, avx2, avx512f, avx512dq, avx512bw]
 memory: 4G
 disk-space: 8G
 components:
-  - &engine llamacpp
+  - &server llamacpp-avx512
   - &model model-qwen2-5-vl-7b-instruct-q4-k-m
   - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
 configurations:
-  engine: *engine
+  server: *server
   model: *model
   multimodel-projector: *mmproj
   http.base-path: v1

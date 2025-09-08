@@ -11,3 +11,6 @@ squashfs-root
 models/
 components/model*/*.gguf
 components/mmproj*/*.gguf
+
+# Build script artifact
+snapcraft.yaml

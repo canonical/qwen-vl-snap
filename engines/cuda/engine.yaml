@@ -14,11 +14,11 @@ devices:
 memory: 5G
 disk-space: 10G
 components:
-  - &engine llamacpp-cuda
+  - &server llamacpp-cuda
   - &model model-qwen2-5-vl-7b-instruct-q4-k-m
   - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
 configurations:
-  engine: *engine
+  server: *server
   model: *model
   multimodel-projector: *mmproj
   http.base-path: v1

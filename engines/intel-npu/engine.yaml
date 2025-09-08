@@ -19,10 +19,10 @@ devices:
 memory: 4G
 disk-space: 8G
 components:
-  - &e openvino-model-server
+  - &s openvino-model-server
   - &m model-qwen2-5-vl-7b-instruct-ov-int4
 configurations:
-  engine: *e
+  server: *s
   model: *m
   target-device: NPU
   http.base-path: v3
