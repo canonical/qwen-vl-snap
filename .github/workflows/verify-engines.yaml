@@ -5,6 +5,10 @@ jobs:
   verify-manifests:
     runs-on: [ self-hosted, linux, amd64, medium, noble ]
     steps:
+
+      - name: Install Git LFS
+        run: sudo apt-get update && sudo apt-get install -y git-lfs
+        
       - name: Checkout code
         uses: actions/checkout@v5
         with:
