@@ -1,23 +1,25 @@
-name: cpu
-description: Use CPU with a good balance between speed and accuracy
+name: cuda
+description: Use Nvidia GPUs via CUDA
 vendor: Canonical Ltd
 grade: stable
 devices:
-  any:
+  all:
     - type: cpu
       architecture: amd64
       flags: [sse4_2, f16c, fma, avx, avx2]
-    - type: cpu
-      architecture: arm64
-      features: [asimd]  # for ARMv8 ASIMD includes NEON instruction set
-memory: 4G
-disk-space: 8G
+    - type: gpu
+      vendor-id: 0x10de # Nvidia Corporation
+      vram: 6300M
+      # compute-capability: 5.0
+memory: 5G
+disk-space: 10G
 components:
-  - &engine llamacpp
+  - &server llamacpp-cuda
   - &model model-qwen2-5-vl-7b-instruct-q4-k-m
   - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
 configurations:
-  engine: *engine
+  server: *server
   model: *model
   multimodel-projector: *mmproj
   http.base-path: v1
+  gpu-layers: 29

@@ -1,5 +1,5 @@
-name: cpu-tiny
-description: Low accuracy but fast inference using CPU
+name: cpu
+description: Use CPU with a good balance between speed and accuracy
 vendor: Canonical Ltd
 grade: stable
 devices:
@@ -13,11 +13,11 @@ devices:
 memory: 4G
 disk-space: 8G
 components:
-  - &engine llamacpp
-  - &model model-qwen2-5-vl-3b-instruct-q4-k-m
-  - &mmproj mmproj-qwen2-5-vl-3b-instruct-q8-0
+  - &server llamacpp
+  - &model model-qwen2-5-vl-7b-instruct-q4-k-m
+  - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
 configurations:
-  engine: *engine
+  server: *server
   model: *model
   multimodel-projector: *mmproj
   http.base-path: v1

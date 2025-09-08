@@ -2,19 +2,19 @@
 
 # TODO: should most of this script move to the ovms component?
 
-engine_component_path="$SNAP_COMPONENTS/$(snapctl get engine)"
-if [ ! -d "$engine_component_path" ]; then
-    echo "Missing component: $engine_component_path"
+server_path="$SNAP_COMPONENTS/$(snapctl get server)"
+if [ ! -d "$server_path" ]; then
+    echo "Missing component: $server_path"
     exit 1
 fi
 
-model_component_path="$SNAP_COMPONENTS/$(snapctl get model)"
-if [ ! -d "$model_component_path" ]; then
-    echo "Missing component: $model_component_path"
+model_path="$SNAP_COMPONENTS/$(snapctl get model)"
+if [ ! -d "$model_path" ]; then
+    echo "Missing component: $model_path"
     exit 1
 fi
 
-"$model_component_path/init"
+"$model_path/init"
 
 model_name="$(snapctl get model-name)"
 if [ -z "$model_name" ]; then
@@ -23,9 +23,9 @@ if [ -z "$model_name" ]; then
 fi
 
 # Add staged shared objects
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib"
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/lib/python"
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$engine_component_path/usr/lib/$ARCH_TRIPLET"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$server_path/lib"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$server_path/lib/python"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$server_path/usr/lib/$ARCH_TRIPLET"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/local/lib"
 export LD_LIBRARY_PATH
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
@@ -34,7 +34,7 @@ echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 export OCL_ICD_VENDORS=$SNAP/etc/OpenCL/vendors
 
 # Add Python dependencies
-export PYTHONPATH="$engine_component_path/lib/python:$engine_component_path/lib/python3.12/site-packages"
+export PYTHONPATH="$server_path/lib/python:$server_path/lib/python3.12/site-packages"
 echo "PYTHONPATH: $PYTHONPATH"
 
 target_device="$(snapctl get target-device)"
@@ -45,8 +45,10 @@ fi
 
 port="$(snapctl get http.port)"
 host="$(snapctl get http.host)"
-verbose="$(snapctl get verbose)"
+
 extra_args=()
+
+verbose="$(snapctl get verbose)"
 if [ "${verbose}" = "true" ]; then
   extra_args+=(--log_level DEBUG)
 fi
@@ -56,12 +58,13 @@ fi
 # Issue: https://github.com/openvinotoolkit/model_server/issues/3492
 
 set -x
-$engine_component_path/bin/ovms \
+"$server_path/bin/ovms" \
     --rest_port "$port" \
     --rest_bind_address "$host" \
     --source_model "$model_name" \
-    --model_repository_path "$model_component_path" \
+    --model_repository_path "$model_path" \
     --target_device "$target_device" \
     --task text_generation \
     --cache_size 2 \
-    "${extra_args[@]}"
+    "${extra_args[@]}" \
+    "$@"

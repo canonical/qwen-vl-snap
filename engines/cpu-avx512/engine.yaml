@@ -10,11 +10,11 @@ devices:
 memory: 4G
 disk-space: 8G
 components:
-  - &engine llamacpp-avx512
+  - &server llamacpp-avx512
   - &model model-qwen2-5-vl-7b-instruct-q4-k-m
   - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
 configurations:
-  engine: *engine
+  server: *server
   model: *model
   multimodel-projector: *mmproj
   http.base-path: v1

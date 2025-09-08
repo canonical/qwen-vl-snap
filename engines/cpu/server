@@ -5,9 +5,17 @@ source "$(dirname "$0")/common.sh"
 port="$(snapctl get http.port)"
 host="$(snapctl get http.host)"
 
-exec "$engine/usr/local/bin/llama-server" \
+extra_args=()
+
+verbose="$(snapctl get verbose)"
+if [ "${verbose}" = "true" ]; then
+  extra_args+=(--verbose)
+fi
+
+exec "$server/usr/local/bin/llama-server" \
 --model "$MODEL_FILE" \
 --mmproj "$MMPROJ_FILE" \
 --port "$port" \
 --host "$host" \
+"${extra_args[@]}" \
 "$@"
