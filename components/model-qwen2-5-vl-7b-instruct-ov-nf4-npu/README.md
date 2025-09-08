@@ -1,4 +1,4 @@
-# Qwen 2.5 VL 7B Optimized for Intel CPU and Intel GPU
+# Qwen 2.5 VL 7B Optimized for Intel NPUs
 
 The model is optimized by Intel and distributed in Intermediate Representation (IR) on Huggingface.
 
@@ -9,5 +9,5 @@ sudo apt install git git-lfs
 
 Clone:
 ```
-git clone https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-int4
+git clone https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-nf4-npu
 ```
