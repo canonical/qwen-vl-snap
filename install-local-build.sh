@@ -31,6 +31,7 @@ fi
 yq stacks/$stack/stack.yaml > /dev/null
 
 # Install the snap
+# The service will first fail to start because the stack is not selected yet
 sudo snap install --dangerous $snap_name_*_$architecture.snap
 
 # Connect interfaces
@@ -43,5 +44,5 @@ cat "./stacks/$stack/stack.yaml" | yq .components[] | while read -r component; d
     sudo snap install --dangerous ./$snap_name+"$component"_*.comp
 done
 
-# Set stack
+# Select a stack
 sudo $snap_name use "$stack" --assume-yes
