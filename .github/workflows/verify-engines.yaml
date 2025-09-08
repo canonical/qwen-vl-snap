@@ -1,0 +1,23 @@
+name: Verify engine manifests
+on: [pull_request]
+
+jobs:
+  verify-manifests:
+    runs-on: [ self-hosted, linux, amd64, medium, noble ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+          submodules: true
+          token: ${{ secrets.SUBMODULE_PAT }}
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Run validation
+        run: |
+          cd stack-utils/cmd/stack
+          go run . debug validate-engines ../../../engines/**/engine.yam
