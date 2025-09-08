@@ -1,8 +1,13 @@
 # Qwen 2.5 VL 7B Optimized for Intel CPU and Intel GPU
 
-The Qwen2.5-VL-7B-Instruct-ov-int4 subdirectory contains the model in Intermediate Representation for use with OpenVINO.
+The model is optimized by Intel and distributed in Intermediate Representation (IR) on Huggingface.
 
-The model is already converted to IR by Intel and can be downloaded from Huggingface:
+Install Git and Git LFS:
+```
+sudo apt install git git-lfs
+```
+
+Clone:
 ```
 git clone https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-int4
 ```
