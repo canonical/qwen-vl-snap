@@ -45,8 +45,10 @@ fi
 
 port="$(snapctl get http.port)"
 host="$(snapctl get http.host)"
-verbose="$(snapctl get verbose)"
+
 extra_args=()
+
+verbose="$(snapctl get verbose)"
 if [ "${verbose}" = "true" ]; then
   extra_args+=(--log_level DEBUG)
 fi
@@ -64,4 +66,5 @@ $engine_component_path/bin/ovms \
     --target_device "$target_device" \
     --task text_generation \
     --cache_size 2 \
-    "${extra_args[@]}"
+    "${extra_args[@]}" \
+    "$@"

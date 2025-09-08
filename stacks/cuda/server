@@ -5,10 +5,24 @@ source "$(dirname "$0")/common.sh"
 port="$(snapctl get http.port)"
 host="$(snapctl get http.host)"
 
+extra_args=()
+
+verbose="$(snapctl get verbose)"
+if [ "${verbose}" = "true" ]; then
+  extra_args+=(--verbose)
+fi
+
+gpu_layers="$(snapctl get gpu-layers)"
+if [[ -z "$gpu_layers" ]]; then
+  echo "gpu-layers snap option is not set"
+  exit 1
+fi
+
 exec "$engine/usr/local/bin/llama-server" \
 --model "$MODEL_FILE" \
 --mmproj "$MMPROJ_FILE" \
 --port "$port" \
 --host "$host" \
---n-gpu-layers 29 \
+--n-gpu-layers "$gpu_layers" \
+"${extra_args[@]}" \
 "$@"
