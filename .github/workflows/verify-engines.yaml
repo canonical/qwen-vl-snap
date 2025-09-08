@@ -8,7 +8,7 @@ jobs:
 
       - name: Install Git LFS
         run: sudo apt-get update && sudo apt-get install -y git-lfs
-        
+
       - name: Checkout code
         uses: actions/checkout@v5
         with:
@@ -24,4 +24,4 @@ jobs:
       - name: Run validation
         run: |
           cd stack-utils/cmd/stack
-          go run . debug validate-engines ../../../engines/**/engine.yam
+          go run . debug validate-engines ../../../engines/**/engine.yaml
