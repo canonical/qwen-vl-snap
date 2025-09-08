@@ -31,6 +31,7 @@ fi
 yq engines/$engine/engine.yaml > /dev/null
 
 # Install the snap
+# The service will first fail to start because the stack is not selected yet
 sudo snap install --dangerous $snap_name_*_$architecture.snap
 
 # Connect interfaces

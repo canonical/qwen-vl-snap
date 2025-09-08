@@ -22,3 +22,4 @@ configurations:
   model: *model
   multimodel-projector: *mmproj
   http.base-path: v1
+  gpu-layers: 29
