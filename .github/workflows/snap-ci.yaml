@@ -1,14 +1,14 @@
 name: Snap CI
-on: [push]
-#on:
-#  pull_request:
-#    branches: [ main ]
-#    types:
-#      - ready_for_review
-#  push:
-#    branches: [ main ]
-#  # Allow manual trigger
-#  workflow_dispatch:
+
+on:
+  pull_request:
+    branches: [ main ]
+    types:
+      - ready_for_review
+  push:
+    branches: [ main ]
+  # Allow manual trigger
+  workflow_dispatch:
 
 env:
   SNAP_NAME: qwen-vl
