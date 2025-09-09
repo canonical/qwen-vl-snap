@@ -1,14 +1,14 @@
 name: Snap CI
-
-on:
-  pull_request:
-    branches: [ main ]
-    types:
-      - ready_for_review
-  push:
-    branches: [ main ]
-  # Allow manual trigger
-  workflow_dispatch:
+on: [push]
+#on:
+#  pull_request:
+#    branches: [ main ]
+#    types:
+#      - ready_for_review
+#  push:
+#    branches: [ main ]
+#  # Allow manual trigger
+#  workflow_dispatch:
 
 env:
   SNAP_NAME: qwen-vl
@@ -54,6 +54,9 @@ jobs:
           git clone https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-int4 $GITHUB_WORKSPACE/components/model-qwen2-5-vl-7b-instruct-ov-int4/Qwen2.5-VL-7B-Instruct-ov-int4
           # 7B model for OpenVINO on NPU
           git clone https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-nf4-npu $GITHUB_WORKSPACE/components/model-qwen2-5-vl-7b-instruct-ov-nf4-npu/Qwen2.5-VL-7B-Instruct-ov-nf4-npu
+
+      - name: Setup tmate session
+        uses: canonical/action-tmate@main
 
       - name: Build snap
         uses: canonical/action-build@v1
