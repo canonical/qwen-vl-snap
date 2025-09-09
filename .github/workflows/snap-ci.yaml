@@ -71,3 +71,7 @@ jobs:
         uses: canonical/stack-utils/.github/actions/snap-publish@main
         with:
           store-credentials: ${{ secrets.STORE_LOGIN }}
+
+      - name: Setup tmate session
+        if: always()
+        uses: canonical/action-tmate@main
