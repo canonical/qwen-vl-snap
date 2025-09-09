@@ -63,7 +63,8 @@ jobs:
         run: |
           # We do not use action-build as we use destructive mode
           # See https://github.com/canonical/action-build/issues/69#issuecomment-2228254450
-          snapcraft -v --destructive-mode
+          # Requires sudo as it installs build-packages on host
+          sudo snapcraft -v --destructive-mode
 
       # Requires STORE_LOGIN secret set. Export with:
       # snapcraft export-login --snaps qwen-vl --channels latest/edge/* --acls package_access,package_push,package_update,package_release --expires 2026-08-01T00:00:00Z
