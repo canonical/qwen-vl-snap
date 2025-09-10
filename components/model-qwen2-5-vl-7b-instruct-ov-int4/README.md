@@ -9,5 +9,5 @@ sudo apt install git git-lfs
 
 Clone:
 ```
-git --depth 1 clone https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-int4
+git clone --depth 1 https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-int4
 ```
