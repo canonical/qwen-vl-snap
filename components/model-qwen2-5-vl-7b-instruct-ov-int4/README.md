@@ -10,4 +10,5 @@ sudo apt install git git-lfs
 Clone:
 ```
 git clone --depth 1 https://huggingface.co/helenai/Qwen2.5-VL-7B-Instruct-ov-int4
+git -C Qwen2.5-VL-7B-Instruct-ov-int4 lfs prune --force
 ```

@@ -169,11 +169,6 @@ parts:
   model-qwen2-5-vl-7b-instruct-ov-int4:
     source: components/model-qwen2-5-vl-7b-instruct-ov-int4
     plugin: dump
-    override-pull: |
-      craftctl default
-      # TODO get the component's version from git
-      # Remove .git directory as it is not required
-      rm -rf .git
     override-build: |
       # At startup OVMS (single model mode) creates the mediapipe graph file inside the model directory.
       # This directory is read-only when it is inside a component.
@@ -191,10 +186,6 @@ parts:
   model-qwen2-5-vl-7b-instruct-ov-nf4-npu:
     source: components/model-qwen2-5-vl-7b-instruct-ov-nf4-npu
     plugin: dump
-    override-pull: |
-      craftctl default
-      # TODO get the component's version from git
-      rm -rf .git
     override-build: |
       mediapipe_graph_path="Qwen2.5-VL-7B-Instruct-ov-nf4-npu/graph.pbtxt"
       if [ ! -L "$mediapipe_graph_path" ]; then
