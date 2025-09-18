@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-engine_manifest=$(qwen-vl show-engine --no-color)
+engine_manifest=$(qwen-vl show-engine)
 engine="$(echo "$engine_manifest" | yq .name)"
 required_components="$(echo "$engine_manifest" | yq .components[])"
 unset engine_manifest
