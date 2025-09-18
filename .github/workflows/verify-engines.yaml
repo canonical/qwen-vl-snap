@@ -23,4 +23,5 @@ jobs:
 
       - name: Run validation
         run: |
-          go run ./cmd/cli debug validate-engines ../../../engines/**/*.yaml
+          cd stack-utils/cmd/cli
+          go run . debug validate-engines ../../../engines/**/*.yaml
