@@ -11,9 +11,9 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 # Set generic config
 #
 
-snapctl set http.port="8080"
-snapctl set http.host="127.0.0.1"
-snapctl set verbose="false"
+snapctl set config.http.port="8080"
+snapctl set config.http.host="127.0.0.1"
+snapctl set config.verbose="false"
 
 #
 # Set all engine manifests as snap config

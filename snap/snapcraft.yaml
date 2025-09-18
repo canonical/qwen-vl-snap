@@ -77,7 +77,7 @@ parts:
       - nvidia-utils # for Nvidia vRAM and Cuda Capability detection
       - clinfo # for Intel GPU vRAM detection
     organize:
-      bin/stack: bin/qwen-vl
+      bin/cli: bin/qwen-vl
 
   go-chat-client:
     source: https://github.com/jpm-canonical/go-chat-client.git

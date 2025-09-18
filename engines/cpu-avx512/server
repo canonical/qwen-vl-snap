@@ -2,12 +2,12 @@
 
 source "$(dirname "$0")/common.sh"
 
-port="$(snapctl get http.port)"
-host="$(snapctl get http.host)"
+port="$(snapctl get config.http.port)"
+host="$(snapctl get config.http.host)"
 
 extra_args=()
 
-verbose="$(snapctl get verbose)"
+verbose="$(snapctl get config.verbose)"
 if [ "${verbose}" = "true" ]; then
   extra_args+=(--verbose)
 fi

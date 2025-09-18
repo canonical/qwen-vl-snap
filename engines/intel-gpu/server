@@ -2,13 +2,13 @@
 
 # TODO: should most of this script move to the ovms component?
 
-server_path="$SNAP_COMPONENTS/$(snapctl get server)"
+server_path="$SNAP_COMPONENTS/$(snapctl get config.server)"
 if [ ! -d "$server_path" ]; then
     echo "Missing component: $server_path"
     exit 1
 fi
 
-model_path="$SNAP_COMPONENTS/$(snapctl get model)"
+model_path="$SNAP_COMPONENTS/$(snapctl get config.model)"
 if [ ! -d "$model_path" ]; then
     echo "Missing component: $model_path"
     exit 1
@@ -16,7 +16,7 @@ fi
 
 "$model_path/init"
 
-model_name="$(snapctl get model-name)"
+model_name="$(snapctl get config.model-name)"
 if [ -z "$model_name" ]; then
     echo "model_name configuration not set"
     exit 1
@@ -37,18 +37,18 @@ export OCL_ICD_VENDORS=$SNAP/etc/OpenCL/vendors
 export PYTHONPATH="$server_path/lib/python:$server_path/lib/python3.12/site-packages"
 echo "PYTHONPATH: $PYTHONPATH"
 
-target_device="$(snapctl get target-device)"
+target_device="$(snapctl get config.target-device)"
 if [ -z "$target_device" ]; then
     echo "target-device configuration not set!"
     exit 1
 fi
 
-port="$(snapctl get http.port)"
-host="$(snapctl get http.host)"
+port="$(snapctl get config.http.port)"
+host="$(snapctl get config.http.host)"
 
 extra_args=()
 
-verbose="$(snapctl get verbose)"
+verbose="$(snapctl get config.verbose)"
 if [ "${verbose}" = "true" ]; then
   extra_args+=(--log_level DEBUG)
 fi
