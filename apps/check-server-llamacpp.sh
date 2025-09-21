@@ -13,7 +13,7 @@ function debug_echo {
 set +e
 
 port="$(qwen-vl get http.port)"
-model_name="$(qwen-vl get model-name)"
+model_name="$(qwen-vl get model-name 2>/dev/null || true)" # model name is optional
 api_base_path="$(qwen-vl get http.base-path)"
 if [ -z "$api_base_path" ]; then
   api_base_path="v1"
