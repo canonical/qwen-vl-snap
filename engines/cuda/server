@@ -2,17 +2,17 @@
 
 source "$(dirname "$0")/common.sh"
 
-port="$(snapctl get config.http.port)"
-host="$(snapctl get config.http.host)"
+port="$(qwen-vl get http.port)"
+host="$(qwen-vl get http.host)"
 
 extra_args=()
 
-verbose="$(snapctl get config.verbose)"
+verbose="$(qwen-vl get verbose)"
 if [ "${verbose}" = "true" ]; then
   extra_args+=(--verbose)
 fi
 
-gpu_layers="$(snapctl get config.gpu-layers)"
+gpu_layers="$(qwen-vl get gpu-layers)"
 if [[ -z "$gpu_layers" ]]; then
   echo "gpu-layers snap option is not set"
   exit 1
