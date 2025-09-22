@@ -16,12 +16,6 @@ qwen-vl set --package http.host="127.0.0.1"
 qwen-vl set --package verbose="false"
 
 #
-# Set all engine manifests as snap config
-# 
-
-qwen-vl load
-
-#
 # Auto select an engine
 #
 
