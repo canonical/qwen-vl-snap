@@ -23,6 +23,6 @@ components:
   - &m model-qwen2-5-vl-7b-instruct-ov-nf4-npu
 configurations:
   server: *s
-  model: *m
+  model.source: *m
   target-device: NPU
   http.base-path: v3
