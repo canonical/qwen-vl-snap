@@ -2,11 +2,11 @@
 
 $SNAP/bin/wait-for-server.sh
 
-port="$(snapctl get http.port)"
-model_name="$(snapctl get model-name)"
+port="$(qwen-vl get http.port)"
+model_name="$(qwen-vl get model-name 2>/dev/null || true)" # model name isn't always set
 
 # Normally the OpenAI API is hosted under http://server:port/v1. In some cases like with OpenVINO Model Server it is under http://server:port/v3
-api_base_path="$(snapctl get http.base-path)"
+api_base_path="$(qwen-vl get http.base-path)"
 if [ -z "$api_base_path" ]; then
   api_base_path="v1"
 fi

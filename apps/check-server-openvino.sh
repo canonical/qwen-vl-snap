@@ -12,9 +12,9 @@ function debug_echo {
 
 set +e
 
-port="$(snapctl get http.port)"
-model_name="$(snapctl get model-name)"
-api_base_path="$(snapctl get http.base-path)"
+port="$(qwen-vl get http.port)"
+model_name="$(qwen-vl get model-name)"
+api_base_path="$(qwen-vl get http.base-path)"
 if [ -z "$api_base_path" ]; then
   api_base_path="v3"
 fi

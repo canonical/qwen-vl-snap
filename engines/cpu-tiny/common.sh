@@ -1,8 +1,8 @@
 #!/bin/bash -eu
 
-server="$SNAP_COMPONENTS/$(snapctl get server)"
-model="$SNAP_COMPONENTS/$(snapctl get model)"
-mmproj="$SNAP_COMPONENTS/$(snapctl get multimodel-projector)"
+server="$SNAP_COMPONENTS/$(qwen-vl get server)"
+model="$SNAP_COMPONENTS/$(qwen-vl get model)"
+mmproj="$SNAP_COMPONENTS/$(qwen-vl get multimodel-projector)"
 
 if [ ! -d "$model" ]; then
     echo "Missing component: $model"

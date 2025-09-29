@@ -11,25 +11,19 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 # Set generic config
 #
 
-snapctl set http.port="8080"
-snapctl set http.host="127.0.0.1"
-snapctl set verbose="false"
-
-#
-# Set all engine manifests as snap config
-# 
-
-$SNAP_NAME load
+qwen-vl set --package http.port="8080"
+qwen-vl set --package http.host="127.0.0.1"
+qwen-vl set --package verbose="false"
 
 #
 # Auto select an engine
 #
 
 if snapctl is-connected hardware-observe; then
-    $SNAP_NAME use-engine --auto --assume-yes
+    qwen-vl use-engine --auto --assume-yes
 elif lscpu -V &> /dev/null; then
     echo "Able to access hardware info without hardware-observe interface connection: assuming dev mode installation."
-    $SNAP_NAME use-engine --auto --assume-yes
+    qwen-vl use-engine --auto --assume-yes
 else
     echo "hardware-observe interface not auto connected. Skip auto engine selection."
 fi
