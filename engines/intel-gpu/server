@@ -8,7 +8,7 @@ if [ ! -d "$server_path" ]; then
     exit 1
 fi
 
-model_path="$SNAP_COMPONENTS/$(qwen-vl get model.source)"
+model_path="$SNAP_COMPONENTS/$(qwen-vl get model)"
 if [ ! -d "$model_path" ]; then
     echo "Missing component: $model_path"
     exit 1

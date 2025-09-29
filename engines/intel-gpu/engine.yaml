@@ -203,6 +203,6 @@ components:
   - &m model-qwen2-5-vl-7b-instruct-ov-int4
 configurations:
   server: *s
-  model.source: *m
+  model: *m
   target-device: GPU
   http.base-path: v3
