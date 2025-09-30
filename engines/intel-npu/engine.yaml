@@ -20,7 +20,7 @@ memory: 4G
 disk-space: 8G
 components:
   - &s openvino-model-server
-  - &m model-qwen2-5-vl-7b-instruct-ov-nf4-npu
+  - &m model-qwen2-5-vl-3b-instruct-ov-int4-npu
 configurations:
   server: *s
   model: *m
