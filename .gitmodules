@@ -1,5 +1,5 @@
 [submodule "stack-utils"]
-	path = stack-utils
+	path = cli
 	url = https://github.com/canonical/stack-utils.git
 [submodule "famous-models-dev"]
 	path = dev
