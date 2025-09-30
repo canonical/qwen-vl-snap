@@ -1,1 +1,3 @@
-This directory contains the source files for some of the snap components. This list does not include components that are directly sourced into the snap from their upstreams.
+This is not a list of snap components.
+
+This directory includes source files for a subset of snap components. Components not present here are added directly into the snap from their upstream sources.
