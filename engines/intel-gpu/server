@@ -15,7 +15,7 @@ if [ ! -d "$model_path" ]; then
 fi
 
 # Model component init exports MODEL_NAME
-"$model_path/init"
+source "$model_path/init"
 
 # Add staged shared objects
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$server_path/lib"
