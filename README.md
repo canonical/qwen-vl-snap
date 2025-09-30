@@ -1,7 +1,19 @@
-# Qwen Vision Language snap
+# Qwen VL snap
 
-This snap installs a hardware-optimized runtime for inference with the Qwen2.5-VL multi-modal model.
+This snap installs a hardware-optimized engine for inference with the [Qwen VL](https://github.com/QwenLM/Qwen-VL) multimodal language model.
 
-## Supported environment
+## Build and install from source
 
-The software has mainly been tested on Ubuntu 24.04 and newer.
+Clone this repo with its submodules:
+```shell
+git clone --recurse-submodules https://github.com/canonical/qwen-vl-snap.git
+```
+
+Prepare the required models by following the instructions for each model, under the [components](./components) directory. 
+
+Build the snap and its component:
+```shell
+snapcraft pack -v
+```
+
+Refer to the `./dev` directory for additional development tools.
