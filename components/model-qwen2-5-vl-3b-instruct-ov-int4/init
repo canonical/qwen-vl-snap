@@ -7,4 +7,4 @@
 # The model name is used to open a subdirectory with the same name.
 # Therefore the model name should be the name of the subdirectory containing the model files.
 
-qwen-vl set --engine model-name="Qwen2.5-VL-7B-Instruct-ov-nf4-npu"
+qwen-vl set --engine model-name="Qwen2.5-VL-3B-Instruct-ov-int4"

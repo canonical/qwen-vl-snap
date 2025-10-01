@@ -166,35 +166,35 @@ parts:
     organize:
       "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
 
-  model-qwen2-5-vl-7b-instruct-ov-int4:
-    source: components/model-qwen2-5-vl-7b-instruct-ov-int4
+  model-qwen2-5-vl-3b-instruct-ov-int4:
+    source: components/model-qwen2-5-vl-3b-instruct-ov-int4
     plugin: dump
     override-build: |
       # At startup OVMS (single model mode) creates the mediapipe graph file inside the model directory.
       # This directory is read-only when it is inside a component.
       # By adding a symlink with the file's name inside the model directory, pointing to /tmp,
       # OVMS will follow the symlink during runtime and instead create the file in /tmp.
-      mediapipe_graph_path="Qwen2.5-VL-7B-Instruct-ov-int4/graph.pbtxt"
+      mediapipe_graph_path="Qwen2.5-VL-3B-Instruct-ov-int4/graph.pbtxt"
       if [ ! -L "$mediapipe_graph_path" ]; then
         ln -s /tmp/graph.pbtxt "$mediapipe_graph_path"
       fi
 
       craftctl default
     organize:
-      "*": (component/model-qwen2-5-vl-7b-instruct-ov-int4)
+      "*": (component/model-qwen2-5-vl-3b-instruct-ov-int4)
 
-  model-qwen2-5-vl-7b-instruct-ov-nf4-npu:
-    source: components/model-qwen2-5-vl-7b-instruct-ov-nf4-npu
+  model-qwen2-5-vl-3b-instruct-ov-int4-npu:
+    source: components/model-qwen2-5-vl-3b-instruct-ov-int4-npu
     plugin: dump
     override-build: |
-      mediapipe_graph_path="Qwen2.5-VL-7B-Instruct-ov-nf4-npu/graph.pbtxt"
+      mediapipe_graph_path="Qwen2.5-VL-3B-Instruct-ov-int4-npu/graph.pbtxt"
       if [ ! -L "$mediapipe_graph_path" ]; then
         ln -s /tmp/graph.pbtxt "$mediapipe_graph_path"
       fi
 
       craftctl default
     organize:
-      "*": (component/model-qwen2-5-vl-7b-instruct-ov-nf4-npu)
+      "*": (component/model-qwen2-5-vl-3b-instruct-ov-int4-npu)
 
   opencl-driver:
     # Includes the OpenCL runtime for Intel GPU support
@@ -309,16 +309,16 @@ components:
     description: Multimodal projector for Qwen 2.5 VL 7B
     version: *snap-version
 
-  model-qwen2-5-vl-7b-instruct-ov-int4:
+  model-qwen2-5-vl-3b-instruct-ov-int4:
     type: standard
-    summary: Qwen 2.5 VL 7B for Intel CPU and Intel GPU
-    description: Model with 7B parameters in OpenVINO IR format, quantized with INT4
+    summary: Qwen 2.5 VL 3B for Intel CPU and Intel GPU
+    description: Model with 3B parameters in OpenVINO IR format, quantized with INT4
     version: *snap-version
 
-  model-qwen2-5-vl-7b-instruct-ov-nf4-npu:
+  model-qwen2-5-vl-3b-instruct-ov-int4-npu:
     type: standard
-    summary: Qwen 2.5 VL 7B for Intel NPU
-    description: Model with 7B parameters in OpenVINO IR format, quantized with NF4
+    summary: Qwen 2.5 VL 3B for Intel NPU
+    description: Model with 3B parameters in OpenVINO IR format, quantized with INT4 and symmetric channel wise quantization to run on Intel NPU
     version: *snap-version
 
 apps:
