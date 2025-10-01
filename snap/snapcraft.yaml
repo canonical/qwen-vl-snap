@@ -142,6 +142,33 @@ parts:
     organize:
       "*": (component/llamacpp-cuda)
 
+  llama-aio: &llama-aio-part
+    source: https://github.com/AmpereComputingAI/llama.cpp/releases/download/v3.2.1/llama_aio_v3.2.1_b322a87.tar.gz
+    source-type: tar
+    plugin: dump
+    stage-packages:
+      - libcurl4
+    organize:
+      "LICENSE*.txt": usr/share/doc/llama-aio/
+      llama-server: (component/llama-aio)/bin/
+      libllama.so: (component/llama-aio)/lib/
+      "libggml*.so": (component/llama-aio)/lib/
+      libmtmd.so: (component/llama-aio)/lib/
+      "usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/": (component/llama-aio)/lib/
+    prime:
+      - -*
+
+  llama-aio-ampereone:
+    <<: *llama-aio-part
+    source: https://github.com/AmpereComputingAI/llama.cpp/releases/download/v3.2.1/llama_aio_v3.2.1_b322a87_ampereone.tar.gz
+    organize:
+      "LICENSE*.txt": usr/share/doc/llama-aio-ampereone/
+      llama-server: (component/llama-aio-ampereone)/bin/
+      libllama.so: (component/llama-aio-ampereone)/lib/
+      "libggml*.so": (component/llama-aio-ampereone)/lib/
+      libmtmd.so: (component/llama-aio-ampereone)/lib/
+      "usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/": (component/llama-aio-ampereone)/lib/
+
   model-qwen2-5-vl-3b-instruct-q4-k-m:
     source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
     plugin: dump
@@ -274,6 +301,18 @@ components:
     summary: llama.cpp Engine for NVIDIA GPUs using CUDA
     description: LLM inference in C/C++
     version: *llamacpp-tag
+
+  llama-aio:
+    type: standard
+    summary: llama-aio Engine for Ampere Altra CPUs
+    description: LLM inference in C/C++
+    version: v3.2.1
+
+  llama-aio-ampereone:
+    type: standard
+    summary: llama-aio Engine for Ampere One CPUs
+    description: LLM inference in C/C++
+    version: v3.2.1
 
   openvino-model-server:
     type: standard

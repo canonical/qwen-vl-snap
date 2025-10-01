@@ -1,0 +1,7 @@
+#!/bin/bash -eu
+
+component_name=mmproj-qwen2-5-vl-3b-instruct-aio-q8-0
+
+mmproj_filename=mmproj-qwen-2.5-vl-3b-instruct-Q8_0.gguf
+mmproj_path=$SNAP_COMPONENTS/$component_name/$mmproj_filename
+export MMPROJ_FILE=$mmproj_path

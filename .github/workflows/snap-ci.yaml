@@ -56,6 +56,11 @@ jobs:
           # 3B model for OpenVINO on NPU
           git clone --depth 1 https://huggingface.co/helenai/Qwen2.5-VL-3B-Instruct-ov-int4-npu $GITHUB_WORKSPACE/components/model-qwen2-5-vl-3b-instruct-ov-int4-npu/Qwen2.5-VL-3B-Instruct-ov-int4-npu
           git -C $GITHUB_WORKSPACE/components/model-qwen2-5-vl-3b-instruct-ov-int4-npu/Qwen2.5-VL-3B-Instruct-ov-int4-npu lfs prune --force
+          # 3B model for Ampere AIO
+          git clone --depth 1 https://huggingface.co/AmpereComputing/qwen-2.5-vl-3b-instruct-gguf
+          cp qwen-2.5-vl-3b-instruct-gguf/mmproj-qwen-2.5-vl-3b-instruct-Q8_0.gguf $GITHUB_WORKSPACE/components/mmproj-qwen2-5-vl-3b-instruct-aio-q8-0/
+          cp qwen-2.5-vl-3b-instruct-gguf/qwen-2.5-vl-3b-instruct-Q8R16.gguf $GITHUB_WORKSPACE/components/model-qwen2-5-vl-3b-instruct-aio-q8r16/
+          rm -rf qwen-2.5-vl-3b-instruct-gguf
 
       - name: Build snap
         uses: canonical/action-build@v1
