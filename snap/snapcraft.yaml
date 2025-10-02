@@ -142,6 +142,33 @@ parts:
     organize:
       "*": (component/llamacpp-cuda)
 
+  llama-aio: &llama-aio-part
+    source: https://github.com/AmpereComputingAI/llama.cpp/releases/download/v3.2.1/llama_aio_v3.2.1_b322a87.tar.gz
+    source-type: tar
+    plugin: dump
+    stage-packages:
+      - libcurl4
+    organize:
+      "LICENSE*.txt": usr/share/doc/llama-aio/
+      llama-server: (component/llama-aio)/bin/
+      libllama.so: (component/llama-aio)/lib/
+      "libggml*.so": (component/llama-aio)/lib/
+      libmtmd.so: (component/llama-aio)/lib/
+      "usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/": (component/llama-aio)/lib/
+    prime:
+      - -*
+
+  llama-aio-ampereone:
+    <<: *llama-aio-part
+    source: https://github.com/AmpereComputingAI/llama.cpp/releases/download/v3.2.1/llama_aio_v3.2.1_b322a87_ampereone.tar.gz
+    organize:
+      "LICENSE*.txt": usr/share/doc/llama-aio-ampereone/
+      llama-server: (component/llama-aio-ampereone)/bin/
+      libllama.so: (component/llama-aio-ampereone)/lib/
+      "libggml*.so": (component/llama-aio-ampereone)/lib/
+      libmtmd.so: (component/llama-aio-ampereone)/lib/
+      "usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/": (component/llama-aio-ampereone)/lib/
+
   model-qwen2-5-vl-3b-instruct-q4-k-m:
     source: components/model-qwen2-5-vl-3b-instruct-q4-k-m
     plugin: dump
@@ -165,6 +192,18 @@ parts:
     plugin: dump
     organize:
       "*": (component/mmproj-qwen2-5-vl-7b-instruct-q8-0)
+
+  model-qwen2-5-vl-3b-instruct-aio-q8r16:
+    source: components/model-qwen2-5-vl-3b-instruct-aio-q8r16
+    plugin: dump
+    organize:
+      "*": (component/model-qwen2-5-vl-3b-instruct-aio-q8r16)
+
+  mmproj-qwen2-5-vl-3b-instruct-aio-q8-0:
+    source: components/mmproj-qwen2-5-vl-3b-instruct-aio-q8-0
+    plugin: dump
+    organize:
+      "*": (component/mmproj-qwen2-5-vl-3b-instruct-aio-q8-0)
 
   model-qwen2-5-vl-3b-instruct-ov-int4:
     source: components/model-qwen2-5-vl-3b-instruct-ov-int4
@@ -275,6 +314,18 @@ components:
     description: LLM inference in C/C++
     version: *llamacpp-tag
 
+  llama-aio:
+    type: standard
+    summary: llama-aio Engine for Ampere Altra CPUs
+    description: LLM inference in C/C++
+    version: v3.2.1
+
+  llama-aio-ampereone:
+    type: standard
+    summary: llama-aio Engine for Ampere One CPUs
+    description: LLM inference in C/C++
+    version: v3.2.1
+
   openvino-model-server:
     type: standard
     summary: OpenVINO Model Server
@@ -307,6 +358,18 @@ components:
     type: standard
     summary: MMProj Qwen 2.5 VL 7B
     description: Multimodal projector for Qwen 2.5 VL 7B
+    version: *snap-version
+
+  model-qwen2-5-vl-3b-instruct-aio-q8r16:
+    type: standard
+    summary: Qwen 2.5 VL 3B Q8_0 for Ampere CPUs
+    description: Quantized model with 3B parameters in gguf format with Q8R16 weight encoding
+    version: *snap-version
+
+  mmproj-qwen2-5-vl-3b-instruct-aio-q8-0:
+    type: standard
+    summary: MMProj Qwen 2.5 VL 3B Q8_0 for Ampere CPUs
+    description: Multimodal projector for Qwen 2.5 VL 3B with Q8_0 weight encoding
     version: *snap-version
 
   model-qwen2-5-vl-3b-instruct-ov-int4:

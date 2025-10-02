@@ -1,0 +1,7 @@
+#!/bin/bash -eu
+
+component_name=model-qwen2-5-vl-3b-instruct-aio-q8r16
+
+model_filename=qwen-2.5-vl-3b-instruct-Q8R16.gguf
+model_path=$SNAP_COMPONENTS/$component_name/$model_filename
+export MODEL_FILE=$model_path
