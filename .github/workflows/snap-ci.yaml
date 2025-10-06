@@ -39,6 +39,7 @@ jobs:
 
   build:
     name: Build and publish snap
+    needs: [trigger]
     strategy:
       fail-fast: false
       matrix:
