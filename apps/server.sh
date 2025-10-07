@@ -14,17 +14,16 @@ for component in $required_components; do
 done
 
 retry_count=0
-max_retries=5
-delay=5
+delay=10
+max_retries=360 # 10 seconds * 360 = 1 hour
 while [ ${#missing_components[@]} -ne 0 ] && [ "$retry_count" -lt $max_retries ]; do
-    echo "Error: missing required snap components: [${missing_components[*]}]"
+    echo "Missing required snap components: [${missing_components[*]}], retrying in $delay seconds..."
     sleep "$delay"
-    delay=$((delay + 5))
     ((retry_count++))
 done
 
 if [ ${#missing_components[@]} -ne 0 ]; then
-    echo "Exiting due to missing components ([${missing_components[*]}]), after $max_retries retries."
+    echo "Error: timed out after $max_retries retries, missing components [${missing_components[*]}]."
     exit 1
 fi
 
