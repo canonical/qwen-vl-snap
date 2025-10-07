@@ -1,6 +1,8 @@
 name: Snap CI
 
 on:
+  # Use pull_request_target to grant write access to the PR
+  # This event runs from the context of the base of the PR rather than its head, affecting the default checkout behavior
   pull_request_target:
     types: [ labeled ]
   
@@ -65,6 +67,8 @@ jobs:
           lfs: true
           submodules: true
           token: ${{ secrets.SUBMODULE_PAT }}
+          # When triggered by pull_request_target, checkout PR's HEAD (rather than base), otherwise use github.sha
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Download models
         run: |
