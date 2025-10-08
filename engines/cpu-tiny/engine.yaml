@@ -3,7 +3,7 @@ description: Low accuracy but fast inference using CPU
 vendor: Canonical Ltd
 grade: stable
 devices:
-  any:
+  anyof:
     - type: cpu
       architecture: amd64
       flags: [sse4_2, f16c, fma, avx, avx2]
