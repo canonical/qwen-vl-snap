@@ -27,7 +27,7 @@ max_retries=360 # 10 seconds * 360 = 1 hour
 while [ ${#missing_components[@]} -ne 0 ] && [ "$retry_count" -lt $max_retries ]; do
     echo "Missing required snap components: [${missing_components[*]}], retrying in $delay seconds..."
     sleep "$delay"
-    ((retry_count++))
+    ((++retry_count))
     check_missing_components missing_components "$required_components"
 done
 
