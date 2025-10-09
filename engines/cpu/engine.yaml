@@ -3,7 +3,7 @@ description: Use CPU with a good balance between speed and accuracy
 vendor: Canonical Ltd
 grade: stable
 devices:
-  any:
+  anyof:
     - type: cpu
       architecture: amd64
       flags: [sse4_2, f16c, fma, avx, avx2]
