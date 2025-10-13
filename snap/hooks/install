@@ -11,7 +11,7 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 # Set generic config
 #
 
-qwen-vl set --package http.port="8080"
+qwen-vl set --package http.port="8326"
 qwen-vl set --package http.host="127.0.0.1"
 qwen-vl set --package verbose="false"
 
