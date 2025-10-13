@@ -43,7 +43,14 @@ plugs:
   # To allow sideloading models by root
   home:
     read: all
-    
+
+slots:
+  socket-provider:
+    interface: content
+    source:
+      read:
+       - $SNAP_DATA/share
+
 hooks:
   install:
     environment:

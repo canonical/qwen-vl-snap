@@ -43,5 +43,6 @@ wait_for_components() {
 
 wait_for_components
 
+qwen-vl status --format=json >$SNAP_DATA/share/connection.json || true
 engine="$(qwen-vl show-engine | yq .name)"
 exec "$SNAP/engines/$engine/server" "$@"
