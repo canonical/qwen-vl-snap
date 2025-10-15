@@ -47,6 +47,6 @@ engine="$(qwen-vl show-engine | yq .name)"
 
 # Generate connection info for clients
 mkdir -p /tmp/share
-qwen-vl status --format=json | yq '.endpoints' >/tmp/share/connection.json
+qwen-vl status --format=json | yq '.endpoints' >$SNAP_DATA/share/endpoints.json
 
 exec "$SNAP/engines/$engine/server" "$@"

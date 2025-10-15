@@ -3,4 +3,5 @@
 # Update connection.json for content interface
 #
 mkdir -p $SNAP_DATA/share
-qwen-vl status --format=json | yq '.endpoints' >/tmp/share/connection.json
+qwen-vl status --format=json | yq '.endpoints' >$SNAP_DATA/share/endpoints.json
+
