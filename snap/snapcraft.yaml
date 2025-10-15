@@ -49,7 +49,7 @@ slots:
     interface: content
     source:
       read:
-       - $SNAP_DATA/share
+       - /tmp/share
 
 hooks:
   install:
