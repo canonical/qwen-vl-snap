@@ -46,7 +46,7 @@ wait_for_components
 engine="$(qwen-vl show-engine | yq .name)"
 
 # Generate connection info for clients
-mkdir -p /tmp/share
-qwen-vl status --format=json | yq '.endpoints' >$SNAP_DATA/share/endpoints.json
+mkdir -p $SNAP_DATA/share/endpoints
+qwen-vl status --format=json | yq '.endpoints' >$SNAP_DATA/share/endpoints/endpoints.json
 
 exec "$SNAP/engines/$engine/server" "$@"

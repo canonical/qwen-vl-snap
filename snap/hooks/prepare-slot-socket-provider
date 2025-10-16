@@ -1,7 +1,0 @@
-#!/bin/bash -eu
-#
-# Update connection.json for content interface
-#
-mkdir -p $SNAP_DATA/share
-qwen-vl status --format=json | yq '.endpoints' >$SNAP_DATA/share/endpoints.json
-
