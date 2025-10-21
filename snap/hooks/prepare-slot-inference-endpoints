@@ -2,5 +2,4 @@
 #
 # Update endpoints.json for content interface
 #
-mkdir -p $SNAP_DATA/share/endpoints
-qwen-vl status --format=json | yq '.endpoints' >$SNAP_DATA/share/endpoints/endpoints.json
+"$SNAP/bin/update-endpoints.sh"
