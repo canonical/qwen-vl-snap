@@ -133,10 +133,11 @@ parts:
     build-packages:
       - to amd64: # see also the overrides
         - nvidia-cuda-toolkit
-    # stage-packages:
-    #   - libgomp1
-    #   - libcudart12
-    #   - libcublas12
+    stage-packages:
+      - libgomp1
+      # This needs to match the CUDA version in the build environment
+      - libcudart12
+      - libcublas12
     cmake-parameters:
       - -DLLAMA_CURL=OFF
       - -DGGML_NATIVE=OFF
