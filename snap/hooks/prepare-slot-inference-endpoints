@@ -1,0 +1,5 @@
+#!/bin/bash -eu
+#
+# Update endpoints.json for content interface
+#
+"$SNAP/bin/update-endpoints.sh"
