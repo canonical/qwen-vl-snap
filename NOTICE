@@ -1,0 +1,7 @@
+This snap package contains multiple software components, each governed by its own license.
+
+Qwen 2.5 VL is provided under the Apache 2.0 License. See LICENSE-qwen-vl for details.
+
+The snap packaging code is licensed separately under the terms specified in the LICENSE file.
+
+All artifacts and dependencies included within this snap package are subject to their respective licenses. License documentation for dependencies is available at /snap/<snap-name>/current/usr/share/doc within the installed snap package.
