@@ -41,7 +41,14 @@ plugs:
   # To allow sideloading models by root
   home:
     read: all
-    
+
+slots:
+  inference-endpoints:
+    interface: content
+    source:
+      read:
+       - $SNAP_DATA/share/endpoints
+
 hooks:
   install:
     environment:
