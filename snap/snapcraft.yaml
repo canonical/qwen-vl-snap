@@ -364,7 +364,7 @@ components:
     type: standard
     summary: OpenVINO Model Server
     description: OpenVINO Model Server for serving models
-    version: v2025.3
+    version: v2026.0
 
   # 
   # Models
