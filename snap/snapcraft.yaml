@@ -33,7 +33,14 @@ slots:
         - &owui-share $SNAP_DATA/share/open-webui
 
 plugs:
-  # To allow side-loading models into server (root daemon) from user home directory
+  intel-npu:
+    interface: custom-device
+    custom-device: intel-npu-device
+  npu-libs:
+    interface: content
+    content: npu-libs-2404
+    target: $SNAP/npu-libs
+  # To allow sideloading models by root
   home:
     read: all
 
