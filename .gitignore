@@ -10,7 +10,4 @@ squashfs-root
 # Weights
 components/
 
-# Build script artifact
-snapcraft.yaml
-
 .venv
