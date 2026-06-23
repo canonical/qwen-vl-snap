@@ -4,6 +4,16 @@
 # The script is expected to be used in the command chain of the chat app.
 
 engine=$(qwen-vl show-engine | yq .name)
+runtime=$(qwen-vl show-engine | yq .runtime)
+
+case "$runtime" in
+  openvino-model-server)
+    check_server_command="$SNAP/bin/check-server-openvino.sh"
+    ;;
+  *)
+    check_server_command="$SNAP/bin/check-server-llamacpp.sh"
+    ;;
+esac
 
 TIMEOUT=60
 WAIT_PRINTED=false
@@ -26,7 +36,7 @@ while true; do
     exit 1
   fi
 
-  "$SNAP/engines/$engine/check-server"
+  "$check_server_command"
   exit_code=$?
 
   case $exit_code in

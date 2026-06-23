@@ -1,0 +1,11 @@
+servers:
+  openai:
+    protocol: http
+    base-path: /v1
+
+environment:
+  - PATH=$PATH:$SNAP_COMPONENTS/llama-aio/bin
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llama-aio/lib
+
+components:
+  - llama-aio

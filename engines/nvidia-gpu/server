@@ -10,15 +10,13 @@ if [ -n "${MMPROJ_FILE:-}" ]; then
 fi
 
 set -x
+# Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
 exec llama-server \
   --model "$MODEL_FILE" \
   --alias "$MODEL_NAME" \
   "${mmproj_args[@]}" \
   --port "$port" \
   --host "$host" \
-  --threads 40 \
-  --threads-batch 40 \
-  --no-mmap \
   --no-warmup \
   --sleep-idle-seconds "$sleep_idle_seconds" \
   "$@"

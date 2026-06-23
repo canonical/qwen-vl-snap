@@ -1,23 +1,20 @@
 name: cpu
-description: Use CPU with a good balance between speed and accuracy
+summary: CPU-optimized for workstations
 vendor: Canonical Ltd
-grade: stable
 devices:
   anyof:
     - type: cpu
       architecture: amd64
-      flags: [sse4_2, f16c, fma, avx, avx2]
     - type: cpu
       architecture: arm64
-      features: [asimd]  # for ARMv8 ASIMD includes NEON instruction set
-memory: 4G
-disk-space: 8G
-components:
-  - &server llamacpp
-  - &model model-qwen2-5-vl-7b-instruct-q4-k-m
-  - &mmproj mmproj-qwen2-5-vl-7b-instruct-q8-0
+
+runtime: llamacpp
+
+model:
+  default: qwen2-5-vl-7b-q4-k-m-gguf
+  options:
+    - qwen2-5-vl-7b-q4-k-m-gguf
+    - qwen2-5-vl-3b-q4-k-m-gguf
+
 configurations:
-  server: *server
-  model: *model
-  multimodel-projector: *mmproj
-  http.base-path: v1
+  sleep-idle-seconds: 600

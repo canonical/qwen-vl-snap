@@ -1,0 +1,22 @@
+id: qwen2-5-vl-3b-aio-q8r16-gguf
+name: 3b-aio
+quantization: Q8R16
+disk-size: 3800M
+
+description: |
+  Qwen2.5 VL 3B Instruct for Ampere platforms in GGUF format with Q8R16
+  quantization and multimodal projector support.
+model-card-url: https://huggingface.co/AmpereComputing/qwen-2.5-vl-3b-instruct-gguf
+
+capabilities:
+  - text
+  - vision
+
+components:
+  - model-qwen2-5-vl-3b-instruct-aio-q8r16
+  - mmproj-qwen2-5-vl-3b-instruct-aio-q8-0
+
+environment:
+  - MODEL_NAME=qwen2.5-vl-3b-instruct-aio
+  - MODEL_FILE=$SNAP_COMPONENTS/model-qwen2-5-vl-3b-instruct-aio-q8r16/qwen-2.5-vl-3b-instruct-Q8R16.gguf
+  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-qwen2-5-vl-3b-instruct-aio-q8-0/mmproj-qwen-2.5-vl-3b-instruct-Q8_0.gguf

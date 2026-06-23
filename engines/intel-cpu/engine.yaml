@@ -1,20 +1,18 @@
 name: intel-cpu
-description: Use Intel CPUs
+summary: OpenVINO optimized for Intel CPUs
 vendor: Intel Corporation
-grade: stable
 devices:
   allof:
     - type: cpu
       architecture: amd64
       manufacturer-id: GenuineIntel
 
-memory: 5G
-disk-space: 10G
-components:
-  - &s openvino-model-server
-  - &m model-qwen2-5-vl-3b-instruct-ov-int4
+runtime: openvino-model-server
+
+model:
+  default: qwen2-5-vl-3b-ov-int4
+  options:
+    - qwen2-5-vl-3b-ov-int4
+
 configurations:
-  server: *s
-  model: *m
-  target-device: CPU
-  http.base-path: v3
+  sleep-idle-seconds: 600

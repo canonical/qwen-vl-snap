@@ -1,30 +1,26 @@
 name: intel-npu
-description: Use Intel NPUs (Core Ultra series)
+summary: OpenVINO optimized for Intel NPUs
 vendor: Intel Corporation
-grade: devel
 devices:
   allof:
     - type: cpu
       architecture: amd64
   anyof:
-    # Lunar Lake NPU
     - type: npu
       vendor-id: 0x8086 # Intel Corporation
       device-id: 0x643e
       snap-connections: [ intel-npu, npu-libs ]
-    # Meteor Lake NPU
     - type: npu
       vendor-id: 0x8086
       device-id: 0x7d1d
       snap-connections: [ intel-npu, npu-libs ]
 
-memory: 4G
-disk-space: 8G
-components:
-  - &s openvino-model-server
-  - &m model-qwen2-5-vl-3b-instruct-ov-int4-npu
+runtime: openvino-model-server
+
+model:
+  default: qwen2-5-vl-3b-ov-int4-npu
+  options:
+    - qwen2-5-vl-3b-ov-int4-npu
+
 configurations:
-  server: *s
-  model: *m
-  target-device: NPU
-  http.base-path: v3
+  sleep-idle-seconds: 600
