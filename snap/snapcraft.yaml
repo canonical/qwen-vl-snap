@@ -188,6 +188,12 @@ parts:
         rm -rf ./model-qwen2-5-vl-3b-instruct-ov-int4/*
         rm -rf ./model-qwen2-5-vl-3b-instruct-ov-int4-npu/*
       fi
+
+      # Ampere models are only for arm64
+      if [ "$CRAFT_ARCH_BUILD_FOR" != "arm64" ]; then
+        rm -rf ./model-qwen2-5-vl-3b-instruct-aio-q8r16/*
+        rm -rf ./mmproj-qwen2-5-vl-3b-instruct-aio-q8-0/*
+      fi
     organize:
       "model-qwen2-5-vl-3b-instruct-q4-k-m/*": (component/model-qwen2-5-vl-3b-instruct-q4-k-m)
       "mmproj-qwen2-5-vl-3b-instruct-q8-0/*": (component/mmproj-qwen2-5-vl-3b-instruct-q8-0)
