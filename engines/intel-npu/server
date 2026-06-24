@@ -15,6 +15,10 @@ if [ "${verbose}" = "true" ]; then
   extra_args+=(--log_level DEBUG)
 fi
 
+# The --source_model and --model_repository_path args are pull-related arguments.
+# OVMS does not work when using the alternative --model_name and --model_path arguments.
+# Issue: https://github.com/openvinotoolkit/model_server/issues/3492
+
 # Set --pipeline_type VLM to work around an issue with the default
 # continuous batching pipeline, VLM_CB
 
@@ -22,8 +26,8 @@ set -x
 ovms \
     --rest_port "$port" \
     --rest_bind_address "$host" \
-    --model_name "$MODEL_NAME" \
-    --model_path "$MODEL_PATH" \
+    --source_model "$MODEL_NAME" \
+    --model_repository_path "$MODEL_PATH" \
     --pipeline_type VLM \
     --task text_generation \
     --target_device NPU \
