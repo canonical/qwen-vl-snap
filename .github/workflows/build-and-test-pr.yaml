@@ -43,7 +43,7 @@ jobs:
       init-build-script: 'download-models.sh'
       publish-channel: latest/edge/pr-${{ github.event.pull_request.number }}
     secrets:
-      store-credentials: ${{ secrets.STORE_LOGIN }}
+      store-credentials: ${{ secrets.STORE_LOGIN_PR }}
   
   test:
     needs: [build-and-publish]
