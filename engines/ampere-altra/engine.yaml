@@ -1,5 +1,6 @@
 name: ampere-altra
 summary: Optimized for Ampere Altra CPUs
+description: This engine uses llama-aio (Ampere® optimized llama.cpp).
 vendor: Ampere Computing
 devices:
   allof:
