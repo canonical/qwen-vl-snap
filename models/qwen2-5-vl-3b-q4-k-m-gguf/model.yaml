@@ -1,0 +1,22 @@
+id: qwen2-5-vl-3b-q4-k-m-gguf
+name: 3b
+quantization: Q4_K_M
+disk-size: 2650M
+
+description: |
+  Qwen2.5 VL 3B Instruct in GGUF format with Q4_K_M quantization for
+  multimodal text and image understanding.
+model-card-url: https://huggingface.co/ggml-org/Qwen2.5-VL-3B-Instruct-GGUF
+
+capabilities:
+  - text
+  - vision
+
+components:
+  - model-qwen2-5-vl-3b-instruct-q4-k-m
+  - mmproj-qwen2-5-vl-3b-instruct-q8-0
+
+environment:
+  - MODEL_NAME=qwen2.5-vl-3b-instruct
+  - MODEL_FILE=$SNAP_COMPONENTS/model-qwen2-5-vl-3b-instruct-q4-k-m/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf
+  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-qwen2-5-vl-3b-instruct-q8-0/mmproj-Qwen2.5-VL-3B-Instruct-Q8_0.gguf

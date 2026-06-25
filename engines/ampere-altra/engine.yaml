@@ -1,7 +1,7 @@
 name: ampere-altra
-description: Optimized for Ampere Altra CPUs
+summary: Optimized for Ampere Altra CPUs
+description: This engine uses llama-aio (Ampere® optimized llama.cpp).
 vendor: Ampere Computing
-grade: stable
 devices:
   allof:
     - type: cpu
@@ -11,14 +11,13 @@ devices:
     - bus: pci
       vendor-id: 1def      # Ampere Computing, LLC
       device-id: e100      # Altra PCI Express Root Complex A
-memory: 5G
-disk-space: 10G
-components:
-  - &server llama-aio
-  - &model model-qwen2-5-vl-3b-instruct-aio-q8r16
-  - &mmproj mmproj-qwen2-5-vl-3b-instruct-aio-q8-0
+
+runtime: llama-aio
+
+model:
+  default: qwen2-5-vl-3b-aio-q8r16-gguf
+  options:
+    - qwen2-5-vl-3b-aio-q8r16-gguf
+
 configurations:
-  server: *server
-  model: *model
-  multimodel-projector: *mmproj
-  http.base-path: v1
+  sleep-idle-seconds: 600

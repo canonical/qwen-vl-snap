@@ -1,0 +1,20 @@
+id: qwen2-5-vl-3b-ov-int4
+name: 3b-ov-int4
+quantization: INT4
+disk-size: 2640M
+
+description: |
+  Qwen2.5 VL 3B Instruct in OpenVINO IR format quantized to INT4 for Intel CPU
+  and Intel GPU.
+model-card-url: https://huggingface.co/llmware/Qwen2.5-VL-3B-Instruct-ov-int4
+
+capabilities:
+  - text
+  - vision
+
+components:
+  - model-qwen2-5-vl-3b-instruct-ov-int4
+
+environment:
+  - MODEL_NAME=Qwen2.5-VL-3B-Instruct-ov-int4
+  - MODEL_PATH=$SNAP_COMPONENTS/model-qwen2-5-vl-3b-instruct-ov-int4
