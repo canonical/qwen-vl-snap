@@ -41,7 +41,7 @@ jobs:
     with:
       runner: "${{ toJSON(matrix.runner) }}"
       init-build-script: 'download-models.sh'
-      publish-channel: latest/edge/pr-${{ github.event.pull_request.number }}
+      publish-channel: 2.5/edge/pr-${{ github.event.pull_request.number }}
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_PR }}
   
@@ -50,4 +50,4 @@ jobs:
     if: ${{ always() && github.event.label.name == vars.PR_TEST_TRIGGER_LABEL && (needs.build-and-publish.result == 'success' || needs.build-and-publish.result == 'skipped') }}
     uses: ./.github/workflows/testflinger-tests.yaml
     with:
-      snap-channel: latest/edge/pr-${{ github.event.pull_request.number }}
+      snap-channel: 2.5/edge/pr-${{ github.event.pull_request.number }}
