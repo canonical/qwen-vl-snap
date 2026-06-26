@@ -1,3 +1,4 @@
+name: llama-aio-ampereone
 servers:
   openai:
     protocol: http
