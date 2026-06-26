@@ -1,5 +1,9 @@
 name: intel-npu
-summary: OpenVINO optimized for Intel NPUs
+summary: Optimized for Intel NPUs
+description: |
+  This engine uses OpenVINO Model Server.
+
+  It is optimized for a range of Intel NPUs
 vendor: Intel Corporation
 devices:
   allof:

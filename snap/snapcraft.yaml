@@ -232,8 +232,13 @@ parts:
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64.tar.gz
     stage-packages:
       - libgomp1
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp
+
+      craftctl default
     organize:
-      "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
       "*": (component/llamacpp)
     
   llamacpp-cuda:
@@ -243,8 +248,13 @@ parts:
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64+cuda12.9.tar.gz
     stage-packages:
       - libgomp1
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp-cuda
+
+      craftctl default
     organize:
-      "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
       "*": (component/llamacpp-cuda)
 
   openvino-model-server:
@@ -253,16 +263,22 @@ parts:
     stage-packages:
       - libxml2
       - libcurl4
-    organize:
-      # move everything, including the staged packages
-      "LICENSE": usr/share/doc/openvino-model-server
-      "*": (component/openvino-model-server)
     # This part is only for amd64
     override-pull: &amd64-only |
       [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default || exit 0
-    override-build: *amd64-only
+    override-build: |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        # Move license files to be included in the snap, not the component
+        mkdir -p $CRAFT_PRIME/usr/share/doc/openvino-model-server
+        mv thirdparty-licenses $CRAFT_PRIME/usr/share/doc/openvino-model-server/
+        mv LICENSE $CRAFT_PRIME/usr/share/doc/openvino-model-server/
+
+        craftctl default
+      fi
     override-stage: *amd64-only
     override-prime: *amd64-only
+    organize:
+      "*": (component/openvino-model-server)
 
   llama-aio: &llama-aio-part
     source: https://github.com/AmpereComputingAI/llama.cpp/releases/download/v3.4.2/llama_aio_v3.4.2_943aee2.tar.gz

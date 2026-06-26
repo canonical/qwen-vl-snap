@@ -15,12 +15,12 @@ fi
 
 set -x
 exec ovms \
-    --rest_port "$port" \
-    --rest_bind_address "$host" \
-    --model_name "$MODEL_NAME" \
-    --model_path "$MODEL_PATH" \
-    --pipeline_type VLM \
-    --task text_generation \
-    --target_device CPU \
-    "${extra_args[@]}" \
-    "$@"
+  --rest_port "$port" \
+  --rest_bind_address "$host" \
+  --model_name "$MODEL_NAME" \
+  --model_path "$MODEL_PATH" \
+  --pipeline_type VLM \
+  --task text_generation \
+  --target_device CPU \
+  "${extra_args[@]}" \
+  "$@"
