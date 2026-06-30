@@ -1,9 +1,30 @@
 name: qwen-vl
 base: core24
-summary: Qwen Vision Language Model
+summary: Qwen VL inference snap
 description: |
-  This snap installs an optimized environment for inference with the
-  Qwen 2.5 Vision Language Model.
+  Qwen VL is a vision language model from Alibaba Cloud.
+
+  Use this snap to run Qwen VL, optimized for your silicon.
+
+  Before you start, make sure to have the necessary drivers installed on the host:
+  https://documentation.ubuntu.com/inference-snaps/how-to/setup/drivers/
+
+  **Install:**
+  
+  `sudo snap install qwen-vl`
+  
+  **Get help:**
+  
+  `qwen-vl --help`
+  
+  **Licensing:**
+  
+  The Qwen VL model is licensed under Apache 2.0.
+
+  The licenses of all bundled software can be found after installing the snap at `/snap/qwen-vl/current/usr/share/doc`.
+website: https://documentation.ubuntu.com/inference-snaps
+source-code: https://github.com/canonical/qwen-vl-snap
+issues: https://github.com/canonical/inference-snaps/issues
 
 adopt-info: version
 
