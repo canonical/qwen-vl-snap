@@ -67,7 +67,7 @@ jobs:
                     "test-chat-tps": true,
                     "expected-tps": 9
           }
-]
+        ]
       snap-name: qwen-vl
       testflinger-client-id: ${{ vars.TESTFLINGER_CLIENT_ID }}
     secrets:
