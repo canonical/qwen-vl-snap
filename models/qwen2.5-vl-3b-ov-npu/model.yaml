@@ -1,6 +1,6 @@
-id: qwen2-5-vl-3b-ov-int4-npu
-name: 3b-ov-int4-npu
-quantization: INT4
+name: qwen2.5-vl-3b-ov-npu
+alias: qwen2.5-vl-3b
+quantization: int4
 disk-size: 2600M
 
 description: |

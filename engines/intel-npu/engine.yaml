@@ -22,9 +22,9 @@ devices:
 runtime: openvino-model-server
 
 model:
-  default: qwen2-5-vl-3b-ov-int4-npu
+  default: qwen2.5-vl-3b-ov-npu
   options:
-    - qwen2-5-vl-3b-ov-int4-npu
+    - qwen2.5-vl-3b-ov-npu
 
 configurations:
   sleep-idle-seconds: 600

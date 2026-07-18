@@ -1,6 +1,6 @@
-id: qwen2-5-vl-3b-aio-q8r16-gguf
-name: 3b-aio
-quantization: Q8R16
+name: qwen2.5-vl-3b-aio
+alias: qwen2.5-vl-3b
+quantization: q8r16
 disk-size: 3800M
 
 description: |
