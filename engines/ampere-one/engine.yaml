@@ -16,9 +16,9 @@ devices:
 runtime: llama-aio-ampereone
 
 model:
-  default: qwen2-5-vl-3b-aio-q8r16-gguf
+  default: qwen2.5-vl-3b-aio
   options:
-    - qwen2-5-vl-3b-aio-q8r16-gguf
+    - qwen2.5-vl-3b-aio
 
 configurations:
   sleep-idle-seconds: 600

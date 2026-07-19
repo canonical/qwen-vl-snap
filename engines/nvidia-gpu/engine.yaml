@@ -21,10 +21,10 @@ devices:
 runtime: llamacpp-cuda
 
 model:
-  default: qwen2-5-vl-7b-q4-k-m-gguf
+  default: qwen2.5-vl-7b
   options:
-    - qwen2-5-vl-7b-q4-k-m-gguf
-    - qwen2-5-vl-3b-q4-k-m-gguf
+    - qwen2.5-vl-7b
+    - qwen2.5-vl-3b
 
 configurations:
   sleep-idle-seconds: 600

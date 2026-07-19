@@ -1,6 +1,5 @@
-id: qwen2-5-vl-3b-q4-k-m-gguf
-name: 3b
-quantization: Q4_K_M
+name: qwen2.5-vl-3b
+quantization: q4-k-m
 disk-size: 2650M
 
 description: |
