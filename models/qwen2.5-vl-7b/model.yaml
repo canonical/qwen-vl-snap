@@ -1,5 +1,5 @@
 name: qwen2.5-vl-7b
-quantization: q4-k-m
+quantization: Q4_K_M
 disk-size: 5290M
 
 description: |

@@ -1,6 +1,6 @@
 name: qwen2.5-vl-3b-ov
 alias: qwen2.5-vl-3b
-quantization: int4
+quantization: INT4
 disk-size: 2640M
 
 description: |

@@ -1,6 +1,6 @@
 name: qwen2.5-vl-3b-aio
 alias: qwen2.5-vl-3b
-quantization: q8r16
+quantization: Q8R16
 disk-size: 3800M
 
 description: |
