@@ -26,6 +26,7 @@ qwen-vl --help
 Clone the repo:
 ```shell
 git clone https://github.com/canonical/qwen-vl-snap.git
+cd qwen-vl-snap
 ```
 
 Initialize the development environment:
