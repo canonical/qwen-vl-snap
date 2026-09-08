@@ -17,6 +17,5 @@ components:
   - mmproj-qwen2-5-vl-3b-instruct-aio-q8-0
 
 environment:
-  - MODEL_NAME=qwen2.5-vl-3b-instruct-aio
   - MODEL_FILE=$SNAP_COMPONENTS/model-qwen2-5-vl-3b-instruct-aio-q8r16/qwen-2.5-vl-3b-instruct-Q8R16.gguf
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-qwen2-5-vl-3b-instruct-aio-q8-0/mmproj-qwen-2.5-vl-3b-instruct-Q8_0.gguf
