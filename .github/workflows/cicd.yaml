@@ -27,5 +27,6 @@ jobs:
       store-track: "2.5"
       snap-name: qwen-vl
       smoke-test-engine: cpu
+      smoke-test-features: openai_models, openai_chat_text
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
