@@ -1,27 +1,42 @@
 name: qwen-vl
+title: Qwen 2.5 VL
 base: core24
-summary: Qwen 2.5 VL inference snap
+summary: Local AI with Qwen 2.5 VL inference snap
 description: |
   Qwen 2.5 VL is a vision language model from Alibaba Cloud.
 
-  Use this snap to run Qwen 2.5 VL, optimized for your silicon.
+  Use this snap to quickly install an optimized environment for local inference with Qwen 2.5 VL.
 
-  Before you start, make sure to have the necessary drivers installed on the host:
-  https://documentation.ubuntu.com/inference-snaps/how-to/setup/drivers/
+  The snap includes the following hardware-optimized inference engines:
+
+  * cpu: Optimized for x64 and ARM (armv8, armv9) CPUs
+  * nvidia-gpu: CUDA-enabled GPU acceleration
+  * intel-cpu: Optimized via OpenVINO for Intel CPUs
+  * intel-gpu: OpenVINO-accelerated inference on Intel integrated/discrete GPUs
+  * intel-npu: OpenVINO-accelerated inference on Intel NPUs
+  * ampere-altra: Optimized for Ampere Altra CPUs
+  * ampere-one: Optimized for Ampere One CPUs
+
+  The most suitable engine is automatically selected based on the available hardware.
 
   **Install:**
-  
+
   `sudo snap install qwen-vl`
-  
-  **Get help:**
-  
-  `qwen-vl --help`
-  
-  **Licensing:**
-  
+
+  **Run:**
+
+  `qwen-vl`
+
+  Some accelerators require extra drivers to be usable with this snap:
+  https://documentation.ubuntu.com/inference-snaps/how-to/setup/drivers/
+
+  **License:**
+
   The Qwen 2.5 VL model is licensed under Apache 2.0.
 
-  The licenses of all bundled software can be found after installing the snap at `/snap/qwen-vl/current/usr/share/doc`.
+  The licenses of all the bundled software can be found after installing the snap at
+  `/snap/qwen-vl/current/usr/share/doc`.
+icon: snap/gui/icon-256.png
 website: https://documentation.ubuntu.com/inference-snaps
 source-code: https://github.com/canonical/qwen-vl-snap
 issues: https://github.com/canonical/inference-snaps/issues
@@ -426,3 +441,9 @@ apps:
     daemon: simple
     plugs:
       - network-bind
+
+lint:
+  ignore:
+    - metadata:
+      - license
+      - contact
